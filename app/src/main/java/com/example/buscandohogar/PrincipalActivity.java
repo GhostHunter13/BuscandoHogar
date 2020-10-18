@@ -1,16 +1,24 @@
 package com.example.buscandohogar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.buscandohogar.adapters.AnimalAdapter;
 import com.example.buscandohogar.classes.Animal;
+import com.example.buscandohogar.fragments.AnimalesFragment;
+import com.example.buscandohogar.fragments.ProfileFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -18,15 +26,9 @@ import java.util.List;
 
 public class PrincipalActivity extends AppCompatActivity {
 
-    private static final String TAB_LAYOUT = "TabLayout";
-    private static final int TAB_PERROS = 0;
-    private static final int TAB_GATOS = 1;
-
-    private List<Animal> animalsList;
-    private AnimalAdapter adapterAnimals;
-    private RecyclerView rvAnimales;
-    private LinearLayoutManager llmAnimales;
-    private TabLayout tablLayout;
+    private static final String TAG = "PrincipalAnimal";
+    private BottomNavigationView barNavigation;
+    private FrameLayout fragmentPrincipal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,45 +39,41 @@ public class PrincipalActivity extends AppCompatActivity {
     }
 
     public void setDatos(){
-        final Animal an = new Animal();
-        animalsList = an.createRandomDogs();
+        barNavigation = findViewById(R.id.barNavigation);
+        fragmentPrincipal = findViewById(R.id.fragmentPrincipal);
+        setFragment(new AnimalesFragment());
 
-        adapterAnimals = new AnimalAdapter(animalsList);
-        tablLayout = new TabLayout(this);
-
-        rvAnimales = findViewById(R.id.rvAnimales);
-        rvAnimales.setHasFixedSize(true);
-
-        llmAnimales = new LinearLayoutManager(this);
-        rvAnimales.setLayoutManager(llmAnimales);
-        rvAnimales.setAdapter(adapterAnimals);
-
-        tablLayout = findViewById(R.id.tabLayout);
-        tablLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        barNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                List<Animal> newList = new ArrayList<>();
-                Log.d(TAB_LAYOUT, "onTabSelected: "+ tab.getPosition());
-                animalsList.clear();
-                if( TAB_PERROS == tab.getPosition() ){
-                    newList.addAll(an.createRandomDogs());
-                } else if ( TAB_GATOS == tab.getPosition() ){
-                    newList.addAll(an.createRandomCats());
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Log.d(TAG, "onNavigationItemSelected: "+ item.getItemId());
+                switch (item.getItemId()) {
+                    case R.id.homeIcon:
+                        setFragment(new AnimalesFragment());
+                        return true;
+                    case R.id.favoriteIcon:
+                        setFragment(new AnimalesFragment());
+                        return true;
+                    case R.id.addIcon:
+                        setFragment(new AnimalesFragment());
+                        return true;
+                    case R.id.profileIcon:
+                        setFragment(new ProfileFragment());
+                        return true;
+                    case R.id.aboutusIcon:
+                        return true;
+                    default:
+                        return false;
                 }
-                adapterAnimals.updateAnimalsList(newList);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
+    }
+
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentPrincipal, fragment);
+        fragmentTransaction.commit();
     }
 
 }

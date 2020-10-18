@@ -1,0 +1,40 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeIcon"
+        android:icon="@drawable/hogar"
+        android:enabled="true"
+        android:title="Inicio"
+        android:contentDescription="Inicio"/>
+
+    <item
+        android:id="@+id/favoriteIcon"
+        android:icon="@drawable/favorito"
+        android:enabled="true"
+        android:title="Favoritos"
+        android:contentDescription="Animales seleccionados como favoritos"/>
+
+    <item
+        android:id="@+id/addIcon"
+        android:icon="@drawable/add"
+        android:enabled="true"
+        android:title="Poner en Adopción"
+        android:contentDescription="Profile"/>
+
+    <item
+        android:id="@+id/profileIcon"
+        android:icon="@drawable/profile"
+        android:enabled="true"
+        android:title="Perfil"
+        android:contentDescription="Profile"/>
+
+
+    <item
+        android:id="@+id/aboutusIcon"
+        android:icon="@drawable/signo"
+        android:enabled="true"
+        android:title="Acerca de"
+        android:contentDescription="Acerca de"/>
+
+
+</menu>
