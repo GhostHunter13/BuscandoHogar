@@ -2,4 +2,12 @@
     <string name="app_name">BuscandoHogar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Strings for labels, textView and more.   -->
+    <string name="descriptionApp">Grupo Nutresa S. A. es la empresa líder en alimentos procesados en Colombia y uno de los jugadores más relevantes del sector en América Latina.
+        Fundada en 1920, cuenta en la actualidad con cerca de 46.000 colaboradores y opera a través de ocho unidades de negocio: Cárnicos, Galletas, Chocolates, Tresmontes Lucchetti -TMLUC-,
+        Cafés, Alimentos al Consumidor, Helados y Pastas.</string>
+
+    <string name="allRightsReserved">© 2020 Buscando un Hogar™. Todos los derechos reservados.</string>
+
 </resources>

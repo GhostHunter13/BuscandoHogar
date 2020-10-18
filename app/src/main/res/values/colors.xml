@@ -14,4 +14,7 @@
     <color name="blackTextColor">#000</color>
     <color name="profileEditTextColor">#707070</color>
 
+    <!-- Colores varios -->
+    <color name="gray">#989898</color>
+
 </resources>

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.buscandohogar.adapters.AnimalAdapter;
 import com.example.buscandohogar.classes.Animal;
+import com.example.buscandohogar.fragments.AboutusFragment;
 import com.example.buscandohogar.fragments.AnimalesFragment;
 import com.example.buscandohogar.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,6 +62,7 @@ public class PrincipalActivity extends AppCompatActivity {
                         setFragment(new ProfileFragment());
                         return true;
                     case R.id.aboutusIcon:
+                        setFragment(new AboutusFragment());
                         return true;
                     default:
                         return false;
