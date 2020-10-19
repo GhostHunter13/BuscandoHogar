@@ -9,7 +9,6 @@
     android:layout_margin="10dp"
     android:background="#CCCCCC">
 
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -69,11 +68,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/continuarfacebook" />
 
     <ImageButton
@@ -83,11 +85,14 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:layout_constraintVertical_bias="0.038"
         app:srcCompat="@drawable/continuargmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
