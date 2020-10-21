@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "759135309240",
+    "firebase_url": "https://buscandounhogar-1f377.firebaseio.com",
+    "project_id": "buscandounhogar-1f377",
+    "storage_bucket": "buscandounhogar-1f377.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759135309240:android:b48312b2f43da6ab74534d",
+        "android_client_info": {
+          "package_name": "com.example.buscandohogar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "759135309240-03jekjlqfnsl4tfs59391iup8n8djrd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSfhKsjfOm1XTS4BFUpabzaGgx6eb6FII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "759135309240-03jekjlqfnsl4tfs59391iup8n8djrd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

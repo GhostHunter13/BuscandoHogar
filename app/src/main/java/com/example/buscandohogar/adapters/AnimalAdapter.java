@@ -1,8 +1,11 @@
 package com.example.buscandohogar.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +22,15 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
 
     private List<Animal> animals;
 
+    private static final String CHECK_BTN = "BotonFavorite";
+
     public static class AnimalViewHolder extends RecyclerView.ViewHolder{
 
         //Cardview correspondiente al animal
         CardView cvAnimal;
         TextView name, age, breed, description;
         ImageView animalPhoto;
+        CheckBox btnFavorite;
 
         public AnimalViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -34,6 +40,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             breed = itemView.findViewById(R.id.txtBreed);
             description = itemView.findViewById(R.id.txtDescription);
             animalPhoto = itemView.findViewById(R.id.imgAnimal);
+            btnFavorite = itemView.findViewById(R.id.btnFavorite);
         }
     }
 

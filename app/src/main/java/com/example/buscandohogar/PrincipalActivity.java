@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.buscandohogar.adapters.AnimalAdapter;
 import com.example.buscandohogar.classes.Animal;
 import com.example.buscandohogar.fragments.AboutusFragment;
+import com.example.buscandohogar.fragments.AdoptionFragment;
 import com.example.buscandohogar.fragments.AnimalesFragment;
+import com.example.buscandohogar.fragments.FavoritesFragment;
 import com.example.buscandohogar.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -53,10 +55,10 @@ public class PrincipalActivity extends AppCompatActivity {
                         setFragment(new AnimalesFragment());
                         return true;
                     case R.id.favoriteIcon:
-                        setFragment(new AnimalesFragment());
+                        setFragment(new FavoritesFragment());
                         return true;
                     case R.id.addIcon:
-                        setFragment(new AnimalesFragment());
+                        setFragment(new AdoptionFragment());
                         return true;
                     case R.id.profileIcon:
                         setFragment(new ProfileFragment());

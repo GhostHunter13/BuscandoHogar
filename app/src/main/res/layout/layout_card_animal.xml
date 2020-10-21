@@ -127,13 +127,12 @@
                 android:layout_margin="8dp"
                 android:orientation="horizontal">
 
-                <com.google.android.material.button.MaterialButton
+                <CheckBox
+                    android:id="@+id/btnFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="favorito"
-                    style="?attr/borderlessButtonStyle"/>
-
-                <!-- PARA SEPARAR LOS BOTONES -->
+                    android:button="@drawable/corazon_favorite"
+                    android:layout_margin="10dp"/>
 
                 <View
                     android:layout_width="0dp"
@@ -141,14 +140,13 @@
                     android:layout_weight="1"
                     />
 
-                <!-- SE ACABA PARA SEPARAR LOS BOTONES -->
-
-                <com.google.android.material.button.MaterialButton
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_margin="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity=""
-                    android:text="Conoceme !"
-                    style="?attr/borderlessButtonStyle"/>
+                    android:layout_height="match_parent"
+                    android:text="Conoceme"
+                    style="?attr/materialButtonStyle" />
 
             </LinearLayout>
 
