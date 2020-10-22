@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:ignore="MissingConstraints">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/imgcircular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:src="@drawable/imagenbuscandounhogar">
 
 
-        </de.hdodenhof.circleimageview.CircleImageView>
+        </ImageView>
 
     </RelativeLayout>
 

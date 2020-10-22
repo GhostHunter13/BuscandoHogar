@@ -3,7 +3,9 @@ package com.example.buscandohogar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
@@ -15,6 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.buscandohogar.Database.DBHelper;
+import com.example.buscandohogar.classes.Animal;
+import com.example.buscandohogar.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,11 +39,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setDatos() {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReference();
 
         btnLogin = findViewById(R.id.btnLogin);
         imageViewLogo = findViewById(R.id.imgcircular);
+        DBHelper db = DBHelper.getInstance(this);
+
+        SQLiteDatabase sqdb = db.getWritableDatabase();
+        User u = new User("Joaco", "123", "Guillen", "prueba@gmaill.com", "Calle 12 # 34 - 45", 321, "Barranquilla");
+        ContentValues cValuesUser = u.getContentValues(u);
+
+        sqdb.insert("usuarios", null, cValuesUser);
+        sqdb.close();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,24 +58,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(goPrincipal);
             }
         });
-
-        Log.d("MAIN", "setDatos: "+ storageReference.child("BuscandoUnHogar"));
-        storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(getApplicationContext())
-                        .load(uri)
-                        .into(imageViewLogo);
-                Log.d("MAIN", "onSuccess: "+ uri.toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("MAIN", "onFailure: Falló");
-            }
-        });
-
-
-
     }
 }
