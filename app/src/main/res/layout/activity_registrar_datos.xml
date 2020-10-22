@@ -26,196 +26,125 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.031"
-            app:srcCompat="@drawable/imagenbuscandounhogar"
+            app:srcCompat="@drawable/profileadd1"
             tools:ignore="MissingConstraints" />
-    <androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Registro de Usuario"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textSize="30dp" />
+
+    <RelativeLayout>
+
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtNombres"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:fontFamily="casual"
-            android:text="DIGITE LOS DATOS"
-            android:textColor="#000000"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="137dp" />
+            android:hint="Nombres"
+        android:layout_centerHorizontal="true"
+            app:startIconDrawable="@drawable/profile"
+     >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <AutoCompleteTextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
 
+        </com.google.android.material.textfield.TextInputLayout>
 
 
 
-    <TableRow>
-        <TextView
-            android:id="@+id/textNombre"
-            android:layout_width="wrap_content"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtApellidos"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:text="NOMBRES"
-            android:fontFamily="casual"
-            android:textColor="#0C4176"
-            android:textSize="8pt"
-            android:gravity="right"/>
+            android:hint="Apellidos"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/txtNombres"
+            app:startIconDrawable="@drawable/profile">
 
-        <EditText android:id="@+id/nombreUsuario"
-            android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="text"
+            android:hint="E-mail"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/txtApellidos"
+            app:startIconDrawable="@drawable/email2">
 
-            android:textColorHint="#E2E5EE" />
+            <AutoCompleteTextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
 
-    </TableRow>
-    <TableRow>
-        <TextView
-            android:id="@+id/textapellidos"
-            android:layout_width="wrap_content"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtContraseña"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:text="APELLIDOS "
-            android:textColor="#0C4176"
-            android:fontFamily="casual"
-            android:textSize="8pt"
-            android:gravity="right" />
+            android:hint="Contraseña"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/txtEmail"
+            app:startIconDrawable="@drawable/contrasena">
 
-        <EditText
-            android:id="@+id/apellidos"
-            android:layout_width="wrap_content"
+            <AutoCompleteTextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtEdad"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPostalAddress"
+            android:hint="Confirmar Contraseña"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/txtContraseña"
+            app:startIconDrawable="@drawable/contrasena">
 
-            android:textColorHint="#E2E5EE" />
+            <AutoCompleteTextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
 
-    </TableRow>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <TableRow>
-        <TextView
-            android:id="@+id/textdepartamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DEPARTAMENTO "
-            android:textColor="#0C4176"
-            android:fontFamily="casual"
-            android:textSize="8pt"
-            android:gravity="right" />
-
-        <EditText
-            android:id="@+id/departamento"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPostalAddress"
-
-            android:textColorHint="#E2E5EE" />
-
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:id="@+id/textciudad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CIUDAD "
-            android:textColor="#0C4176"
-            android:fontFamily="casual"
-            android:textSize="8pt"
-            android:gravity="right" />
-
-        <EditText
-            android:id="@+id/ciudad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textPostalAddress"
-
-            android:textColorHint="#E2E5EE" />
-
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:id="@+id/textTelefono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="#TELEFONICO "
-            android:textColor="#0C4176"
-            android:fontFamily="casual"
-            android:textSize="8pt"
-            android:gravity="right" />
-
-        <EditText
-            android:id="@+id/telefono"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="number"
-
-            android:textColorHint="#E2E5EE" />
-
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:id="@+id/textEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="E-MAIL "
-            android:textColor="#0C4176"
-            android:fontFamily="casual"
-            android:textSize="8pt"
-            android:gravity="right" />
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="textWebEmailAddress"
-
-            android:textColorHint="#E2E5EE" />
-
-    </TableRow>
-
-    <TableRow>
-        <TextView
-            android:id="@+id/textcontraseña"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CONTRASEÑA"
-            android:textColor="#0C4176"
-            android:fontFamily="casual"
-            android:textSize="8pt"
-            android:gravity="right" />
-
-        <EditText
-            android:id="@+id/contraseña"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-
-            android:inputType="numberPassword"
-            android:textColorHint="#E2E5EE" />
-
-    </TableRow>
-
-
-
+    </RelativeLayout>
     <Button
-        android:id="@+id/btncontinuar"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="32dp"
-        android:text="CONTINUAR"
+        android:text="COntinuar"
         app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
         tools:ignore="MissingConstraints" />
+
 
 
 
