@@ -1,5 +1,7 @@
 package com.example.buscandohogar.classes;
 
+import android.content.ContentValues;
+
 import com.example.buscandohogar.R;
 
 import java.util.ArrayList;
@@ -92,6 +94,25 @@ public class Animal {
 
     public void setUrlImage(int urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public int getType() {
+        return urlImage;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public ContentValues getContentValues(Animal animal){
+        ContentValues values = new ContentValues();
+        values.put("name", animal.getName());
+        values.put("age", animal.getAge());
+        values.put("breed", animal.getBreed());
+        values.put("description", animal.getDescription());
+        values.put("type", animal.getType());
+
+        return values;
     }
 
 
