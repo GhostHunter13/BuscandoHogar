@@ -1,5 +1,6 @@
 package com.example.buscandohogar.fragments;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
     View v;
     private ImageView ivProfile;
     public static final String TAG = "BUCKETNAME";
+    Context context;
 
     public ProfileFragment() {
     }
@@ -48,15 +50,19 @@ public class ProfileFragment extends Fragment {
     private void setDatos() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference();
+        context = getContext();
         ivProfile = v.findViewById(R.id.imgProfile);
+
 
         Log.d(TAG, "setDatos: "+ storageReference.child("BuscandoUnHogar"));
         storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Glide.with(getContext())
-                        .load(uri)
-                        .into(ivProfile);
+                if( context != null ){
+                    Glide.with(context)
+                            .load(uri)
+                            .into(ivProfile);
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
