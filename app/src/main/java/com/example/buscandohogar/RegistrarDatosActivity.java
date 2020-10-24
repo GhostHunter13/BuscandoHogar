@@ -4,24 +4,34 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.buscandohogar.Database.DBManager;
+import com.example.buscandohogar.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Text;
 
 public class RegistrarDatosActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView txtNombres;
-    private AutoCompleteTextView txtApellidos;
-    private AutoCompleteTextView txtEmail;
-    private AutoCompleteTextView txtContraseña;
-    private AutoCompleteTextView txtConfirmarContraseña;
+    private TextInputLayout txtNombres;
+    private TextInputLayout txtApellidos;
+    private TextInputLayout txtEmail;
+    private TextInputLayout txtContraseña;
+    private TextInputLayout txtConfirmarContraseña;
     private Button Continuar;
 
     //VARIABLES DE LOS DATOS QUE VAMOS A REGISTRAR
@@ -33,49 +43,40 @@ public class RegistrarDatosActivity extends AppCompatActivity {
     private String confirmarcontraseña = "";
 
     FirebaseAuth mAuth;
-    
-
-
+    FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_datos);
 
+
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
-
-
-
-        txtNombres = (AutoCompleteTextView) findViewById(R.id.txtNombres);
-        txtApellidos = (AutoCompleteTextView) findViewById(R.id.txtApellidos);
-        txtEmail = (AutoCompleteTextView) findViewById(R.id.txtEmail);
-        txtContraseña = (AutoCompleteTextView) findViewById(R.id.txtContraseña);
-        txtConfirmarContraseña = (AutoCompleteTextView) findViewById(R.id.txtConfirmarContraseña);
+        txtNombres = findViewById(R.id.txtNombres);
+        txtApellidos = findViewById(R.id.txtApellidos);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtContraseña = findViewById(R.id.txtContraseña);
+        txtConfirmarContraseña = findViewById(R.id.txtConfirmarContraseña);
         Continuar = (Button) findViewById(R.id.btnContinuar);
 
         Continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nombres = txtNombres.getText().toString();
-                apellidos = txtApellidos.getText().toString();
-                email = txtEmail.getText().toString();
-                contraseña = txtContraseña.getText().toString();
-                confirmarcontraseña = txtConfirmarContraseña.getText().toString();
+                nombres = txtNombres.getEditText().getText().toString();
+                apellidos = txtApellidos.getEditText().getText().toString();
+                email = txtEmail.getEditText().getText().toString();
+                contraseña = txtContraseña.getEditText().getText().toString();
+                confirmarcontraseña = txtConfirmarContraseña.getEditText().getText().toString();
 
 
                 if (!nombres.isEmpty() && !apellidos.isEmpty() && !email.isEmpty() && !contraseña.isEmpty() && !confirmarcontraseña.isEmpty()) {
 
                     if (contraseña.length() >= 8){
                         registerUser();
-
-                    }
-
-                    else{
+                    }else{
                         Toast.makeText(RegistrarDatosActivity.this, "la contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
-
                     }
-
-
                 }
                     else{
                     Toast.makeText(RegistrarDatosActivity.this, "Debe completar los campos", Toast.LENGTH_SHORT).show();
@@ -85,22 +86,28 @@ public class RegistrarDatosActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo para registrar usuarios.
+     */
     private void registerUser(){
-        mAuth.createUserWithEmailAndPassword( email, contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        User user = new User();
+        user.setName(nombres);
+        user.setLastname(apellidos);
+        user.setEmail(email);
+        user.setPassword(contraseña);
 
-                }
-                else {
-
-                    Toast.makeText(RegistrarDatosActivity.this, "No se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-        });
-
-
+        db.collection("users").add(user)
+                .addOnSuccessListener(new OnSuccessListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+                        Log.d("SUCCESS", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("FAILURE", "Error writing document", e);
+                    }
+                });
     }
 }

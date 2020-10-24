@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogin;
+    private Button btnLogin, btnRegistrarse;
     private ImageView imageViewLogo;
     private EditText editTextTextPersonName, editTextTextPassword;
     private DBManager dbManager;
@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     private void setDatos() {
         dbManager = new DBManager(this);
         btnLogin = findViewById(R.id.btnLogin);
+        btnRegistrarse = findViewById(R.id.btnRegistrarse);
         imageViewLogo = findViewById(R.id.imgcircular);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
@@ -72,6 +73,14 @@ public class MainActivity extends AppCompatActivity {
 //
 //        sqdb.insert("usuarios", null, cValuesUser);
 //        sqdb.close();
+
+        btnRegistrarse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RegistrarDatosActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
