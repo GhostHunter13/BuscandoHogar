@@ -25,6 +25,8 @@ import com.example.buscandohogar.classes.Animal;
 import com.example.buscandohogar.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -38,8 +40,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewLogo;
     private EditText editTextTextPersonName, editTextTextPassword;
     private DBManager dbManager;
+
     public static final String TAG = "MainActivity";
     public static final String DATA_USER = "DatosUsuario";
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
         setDatos();
     }
 
+
+
     private void setDatos() {
         dbManager = new DBManager(this);
         btnLogin = findViewById(R.id.btnLogin);
         imageViewLogo = findViewById(R.id.imgcircular);
         editTextTextPassword = findViewById(R.id.editTextTextPassword);
         editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
+
 
 //        DBHelper db = DBHelper.getInstance(this);
 //
