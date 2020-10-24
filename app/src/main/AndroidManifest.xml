@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar">
-        <activity android:name=".fgrgrhs"></activity>
+        <activity android:name=".ConocemeActivity"></activity>
+        <activity android:name=".fgrgrhs" />
         <activity android:name=".RegistrarDatosActivity" />
         <activity android:name=".PrincipalActivity" />
         <activity android:name=".MainActivity">

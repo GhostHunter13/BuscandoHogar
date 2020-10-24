@@ -57,6 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
             " breed INTEGER," +
             " description TEXT)";
 
+
     public static final String SQL_DELETE_USERS = "DROP TABLE IF EXISTS "+ USERS_TABLE;
     public static final String SQL_DELETE_ANIMAL = "DROP TABLE IF EXISTS "+ ANIMAL_TABLE;
 }

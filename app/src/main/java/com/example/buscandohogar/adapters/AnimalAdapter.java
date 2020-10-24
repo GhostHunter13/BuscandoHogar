@@ -1,9 +1,12 @@
 package com.example.buscandohogar.adapters;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -13,6 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.buscandohogar.ConocemeActivity;
+import com.example.buscandohogar.MainActivity;
+import com.example.buscandohogar.PrincipalActivity;
 import com.example.buscandohogar.R;
 import com.example.buscandohogar.classes.Animal;
 
@@ -23,6 +29,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
     private List<Animal> animals;
 
     private static final String CHECK_BTN = "BotonFavorite";
+    private static final String TAG = "AnimalAdapter";
 
     public static class AnimalViewHolder extends RecyclerView.ViewHolder{
 
@@ -31,6 +38,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         TextView name, age, breed, description;
         ImageView animalPhoto;
         CheckBox btnFavorite;
+        Button btnConoceme;
 
         public AnimalViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -41,6 +49,16 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             description = itemView.findViewById(R.id.txtDescription);
             animalPhoto = itemView.findViewById(R.id.imgAnimal);
             btnFavorite = itemView.findViewById(R.id.btnFavorite);
+            btnConoceme = itemView.findViewById(R.id.btnConoceme);
+
+            btnConoceme.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    String idText = view.getId()+"";
+                    Log.d(TAG, "onClick: "+ idText);
+                }
+            });
         }
     }
 
