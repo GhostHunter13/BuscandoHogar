@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.example.buscandohogar.R;
 import com.example.buscandohogar.adapters.AnimalAdapter;
+import com.example.buscandohogar.adapters.SolicitudAdapter;
 import com.example.buscandohogar.classes.Animal;
 import com.google.android.material.tabs.TabLayout;
 
@@ -26,7 +27,7 @@ public class FavoritesFragment extends Fragment {
     private View v;
     private RecyclerView rvAnimalesFavorites;
     private List<Animal> animalsListFavorites;
-    private AnimalAdapter adapterAnimalsFavorites;
+    private SolicitudAdapter adapterAnimalsFavorites;
     private LinearLayoutManager llmAnimalesFavorites;
     private ImageView ivNoFavorites;
 
@@ -52,7 +53,7 @@ public class FavoritesFragment extends Fragment {
         animalsListFavorites = an.createRandomDogs();
         rvAnimalesFavorites = v.findViewById(R.id.rvAnimalesFavorites);
 
-        adapterAnimalsFavorites = new AnimalAdapter(animalsListFavorites);
+        adapterAnimalsFavorites = new SolicitudAdapter(animalsListFavorites);
         rvAnimalesFavorites.setHasFixedSize(true);
 
         llmAnimalesFavorites = new LinearLayoutManager(getContext());
