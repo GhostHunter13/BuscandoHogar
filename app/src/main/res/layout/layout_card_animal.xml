@@ -67,7 +67,7 @@
                 android:scaleType="centerCrop"
                 android:layout_height="194dp"
                 android:contentDescription="Foto Animal"
-                android:src="@drawable/perro_modelo"/>
+                android:src="@drawable/rotweillermodelo"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                         android:id="@+id/txtName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Walter"
+                        android:text="Miguelito"
                         android:textAppearance="?attr/textAppearanceHeadline6"/>
 
                     <TextView
@@ -98,7 +98,7 @@
                         android:id="@+id/txtAge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" 2 años"
+                        android:text=" 2 meses"
                         android:textAppearance="?attr/textAppearanceHeadline6"/>
 
                 </LinearLayout>
@@ -107,14 +107,14 @@
                     android:id="@+id/txtBreed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Criollo"/>
+                    android:text="Rotweiler"/>
 
                 <TextView
                     android:id="@+id/txtDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Walter es un macho de raza pitbull, tiene 2 años y se encuentra actualmente en la ciudad de Barranquilla."
+                    android:text="Miguelito es de raza rotweiler(Alemania), tiene 2 meses de nacido...si quieres saber mas sobre el dirigete a CONOCEME."
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:textColor="?android:attr/textColorSecondary"/>
 

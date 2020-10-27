@@ -88,22 +88,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String user = email.getEditText().toString();
-                String pass = contraseña.getEditText().toString();
+                String user = email.getEditText().getText().toString();
+                String pass = contraseña.getEditText().getText().toString();
+                Intent goPrincipal = new Intent(MainActivity.this, PrincipalActivity.class);
+                startActivity(goPrincipal);
 
-                if( user.isEmpty() || pass.isEmpty() ){
-                    Toast.makeText(MainActivity.this, "Ingrese los datos por favor.", Toast.LENGTH_SHORT).show();
-                } else {
-                    User userLogin = dbManager.checkUserExist(user,pass);
-
-                    if( userLogin.getEmail() != null ){
-                        Toast.makeText(MainActivity.this, "Bienvenido "+ userLogin.getName() + "", Toast.LENGTH_SHORT).show();
-                        Intent goPrincipal = new Intent(MainActivity.this, PrincipalActivity.class);
-                        startActivity(goPrincipal);
-                    } else {
-                        Toast.makeText(MainActivity.this, "Los datos de inicio de sesion son incorrectos/no se encuentra registrado", Toast.LENGTH_SHORT).show();
-                    }
-                }
+//                if( user.isEmpty() || pass.isEmpty() ){
+//                    Toast.makeText(MainActivity.this, "Ingrese los datos por favor.", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    User userLogin = dbManager.checkUserExist(user,pass);
+//
+//                    if( userLogin.getEmail() != null ){
+//                        Toast.makeText(MainActivity.this, "Bienvenido "+ userLogin.getName() + "", Toast.LENGTH_SHORT).show();
+//                        Intent goPrincipal = new Intent(MainActivity.this, PrincipalActivity.class);
+//                        startActivity(goPrincipal);
+//                    } else {
+//                        Toast.makeText(MainActivity.this, "Los datos de inicio de sesion son incorrectos/no se encuentra registrado", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
             }
         });
     }

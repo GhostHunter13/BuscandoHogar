@@ -3,6 +3,7 @@ package com.example.buscandohogar;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.buscandohogar.Database.DBManager;
+import com.example.buscandohogar.classes.Solicitud;
 import com.example.buscandohogar.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -41,7 +43,7 @@ public class RegistrarDatosActivity extends AppCompatActivity {
 
     private String nombres = "";
     private String apellidos = "";
-    private String telefono = "";
+    private int telefono = 0;
     private String ciudad = "";
     private String direccion = "";
     private String email = "";
@@ -74,15 +76,15 @@ public class RegistrarDatosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 nombres = txtNombres.getEditText().getText().toString();
                 apellidos = txtApellidos.getEditText().getText().toString();
-                telefono = txtTelefono.getEditText().getText().toString();
                 ciudad = txtCiudad.getEditText().getText().toString();
                 direccion = txtDireccion.getEditText().getText().toString();
                 email = txtEmail.getEditText().getText().toString();
+                telefono = txtTelefono.getEditText().getText().toString().isEmpty() ? 0 : 1;
                 contraseña = txtContraseña.getEditText().getText().toString();
                 confirmarcontraseña = txtConfirmarContraseña.getEditText().getText().toString();
 
 
-                if (!nombres.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !ciudad.isEmpty() && !direccion.isEmpty() && !email.isEmpty() && !contraseña.isEmpty() && !confirmarcontraseña.isEmpty()) {
+                if (!nombres.isEmpty() && !apellidos.isEmpty() && telefono > 0 && !ciudad.isEmpty() && !direccion.isEmpty() && !email.isEmpty() && !contraseña.isEmpty() && !confirmarcontraseña.isEmpty()) {
 
                     if (contraseña.length() >= 8){
                         registerUser();
@@ -115,13 +117,16 @@ public class RegistrarDatosActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener() {
                     @Override
                     public void onSuccess(Object o) {
-                        Log.d("SUCCESS", "DocumentSnapshot successfully written!");
+                        Log.d("SUCCESS", "Se ha creado el usuario correctamente.");
+                        Toast.makeText(RegistrarDatosActivity.this, "Se ha creaco el usuario correctamente!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegistrarDatosActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w("FAILURE", "Error writing document", e);
+                        Log.w("FAILURE", "Ha habido problemas al crear el usuario. Lo sentimos", e);
                     }
                 });
     }

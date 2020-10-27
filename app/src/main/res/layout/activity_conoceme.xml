@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="55dp">
 
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/idImagesCarousel"
@@ -22,25 +24,42 @@
             app:radius="6dp"
             app:slideInterval="3000"
             app:strokeColor="#FF777777"
-            app:strokeWidth="1dp"/>
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/rotweiler" />
+        </com.synnapps.carouselview.CarouselView>
 
         <TextView
             android:id="@+id/txtNombre"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="Me llamo Miguelito"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:text="Me llamo Miguelito"/>
+            android:textSize="20sp"
+            android:fontFamily="monospace"
+            android:textStyle="bold"/>
 
         <TextView
+            android:layout_width="401dp"
+            android:layout_height="97dp"
             android:layout_margin="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:textSize="20sp"
+            android:text="Hola amiguitos, mi nombre es MIGUELITO, soy de raza llamada Rotweiler proveniente de ALEMANIA, tengo 2 meses de nacido, estoy al
+            dia con todas mis vacunas, soy muy cariñoso y jugueton, estoy  en busca de  un hogar donde me quieran,
+            me consientan y me valoren. espero y me puedas tener en tu casita, Gracias."
+            android:textStyle="italic"
+            android:fontFamily="monospace"
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:text="Mi nombre es miguelito así que montala"/>
+            android:textSize="20sp"
+            android:justificationMode="inter_word"
+            android:lineSpacingExtra="12dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,19 +69,18 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Atras"/>
+                android:text="Atras" />
 
             <com.google.android.material.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="¿Quieres Adoptarme?"/>
+                android:layout_marginLeft="30dp"
+                android:text="¿Quieres Adoptarme?" />
 
         </LinearLayout>
 
 
-
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
