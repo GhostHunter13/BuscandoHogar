@@ -29,6 +29,9 @@ public class RegistrarDatosActivity extends AppCompatActivity {
 
     private TextInputLayout txtNombres;
     private TextInputLayout txtApellidos;
+    private TextInputLayout txtTelefono;
+    private TextInputLayout txtCiudad;
+    private TextInputLayout txtDireccion;
     private TextInputLayout txtEmail;
     private TextInputLayout txtContraseña;
     private TextInputLayout txtConfirmarContraseña;
@@ -38,6 +41,9 @@ public class RegistrarDatosActivity extends AppCompatActivity {
 
     private String nombres = "";
     private String apellidos = "";
+    private String telefono = "";
+    private String ciudad = "";
+    private String direccion = "";
     private String email = "";
     private String contraseña = "";
     private String confirmarcontraseña = "";
@@ -55,6 +61,9 @@ public class RegistrarDatosActivity extends AppCompatActivity {
 
         txtNombres = findViewById(R.id.txtNombres);
         txtApellidos = findViewById(R.id.txtApellidos);
+        txtTelefono = findViewById(R.id.txtTel);
+        txtCiudad = findViewById(R.id.txtCiudad);
+        txtDireccion = findViewById(R.id.txtDireccion);
         txtEmail = findViewById(R.id.txtEmail);
         txtContraseña = findViewById(R.id.txtContraseña);
         txtConfirmarContraseña = findViewById(R.id.txtConfirmarContraseña);
@@ -65,12 +74,15 @@ public class RegistrarDatosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 nombres = txtNombres.getEditText().getText().toString();
                 apellidos = txtApellidos.getEditText().getText().toString();
+                telefono = txtTelefono.getEditText().getText().toString();
+                ciudad = txtCiudad.getEditText().getText().toString();
+                direccion = txtDireccion.getEditText().getText().toString();
                 email = txtEmail.getEditText().getText().toString();
                 contraseña = txtContraseña.getEditText().getText().toString();
                 confirmarcontraseña = txtConfirmarContraseña.getEditText().getText().toString();
 
 
-                if (!nombres.isEmpty() && !apellidos.isEmpty() && !email.isEmpty() && !contraseña.isEmpty() && !confirmarcontraseña.isEmpty()) {
+                if (!nombres.isEmpty() && !apellidos.isEmpty() && !telefono.isEmpty() && !ciudad.isEmpty() && !direccion.isEmpty() && !email.isEmpty() && !contraseña.isEmpty() && !confirmarcontraseña.isEmpty()) {
 
                     if (contraseña.length() >= 8){
                         registerUser();
@@ -93,6 +105,9 @@ public class RegistrarDatosActivity extends AppCompatActivity {
         User user = new User();
         user.setName(nombres);
         user.setLastname(apellidos);
+        user.setPhone(telefono);
+        user.setCity(ciudad);
+        user.setAddress(direccion);
         user.setEmail(email);
         user.setPassword(contraseña);
 
