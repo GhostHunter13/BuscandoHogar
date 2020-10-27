@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.example.buscandohogar.classes.Animal;
 import com.example.buscandohogar.classes.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -38,7 +40,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private Button btnLogin, btnRegistrarse;
     private ImageView imageViewLogo;
-    private EditText editTextTextPersonName, editTextTextPassword;
+    private TextInputLayout email,contraseña;
     private DBManager dbManager;
 
     public static final String TAG = "MainActivity";
@@ -61,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
         imageViewLogo = findViewById(R.id.imgcircular);
-        editTextTextPassword = findViewById(R.id.editTextTextPassword);
-        editTextTextPersonName = findViewById(R.id.editTextTextPersonName);
+        email = findViewById(R.id.txtEmail);
+        contraseña = findViewById(R.id.txtContraseña);
 
 
 //        DBHelper db = DBHelper.getInstance(this);
@@ -86,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String user = editTextTextPersonName.getText().toString();
-                String pass = editTextTextPassword.getText().toString();
+                String user = email.getEditText().toString();
+                String pass = contraseña.getEditText().toString();
 
                 if( user.isEmpty() || pass.isEmpty() ){
                     Toast.makeText(MainActivity.this, "Ingrese los datos por favor.", Toast.LENGTH_SHORT).show();
