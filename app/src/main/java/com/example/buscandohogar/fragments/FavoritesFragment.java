@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.buscandohogar.R;
 import com.example.buscandohogar.adapters.AnimalAdapter;
@@ -30,6 +31,7 @@ public class FavoritesFragment extends Fragment {
     private SolicitudAdapter adapterAnimalsFavorites;
     private LinearLayoutManager llmAnimalesFavorites;
     private ImageView ivNoFavorites;
+    private LinearLayout llNoFavorites;
 
     public FavoritesFragment() {
     }
@@ -49,6 +51,7 @@ public class FavoritesFragment extends Fragment {
 
     private void setDatos() {
         final Animal an = new Animal();
+        llNoFavorites = v.findViewById(R.id.llNoFavorites);
         ivNoFavorites = v.findViewById(R.id.ivNoFavorites);
         animalsListFavorites = an.createRandomDogs();
         rvAnimalesFavorites = v.findViewById(R.id.rvAnimalesFavorites);
@@ -60,11 +63,7 @@ public class FavoritesFragment extends Fragment {
         rvAnimalesFavorites.setLayoutManager(llmAnimalesFavorites);
         rvAnimalesFavorites.setAdapter(adapterAnimalsFavorites);
 
-        if( animalsListFavorites.isEmpty() ){
-            ivNoFavorites.setVisibility(View.VISIBLE);
-        } else {
-            ivNoFavorites.setVisibility(View.GONE);
-        }
+        llNoFavorites.setVisibility( animalsListFavorites.isEmpty() ? View.VISIBLE : View.GONE );
 
     }
 }
