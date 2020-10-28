@@ -46,7 +46,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class
+MainActivity extends AppCompatActivity {
     private Button btnLogin, btnRegistrarse;
     private ImageView imageViewLogo;
     private TextInputLayout email,contraseña;
