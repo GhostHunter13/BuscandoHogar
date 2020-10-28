@@ -104,6 +104,8 @@ public class RegistrarDatosActivity extends AppCompatActivity {
      * Metodo para registrar usuarios.
      */
     private void registerUser(){
+        encryptPassword(contraseña);
+
         User user = new User();
         user.setName(nombres);
         user.setLastname(apellidos);
@@ -129,5 +131,12 @@ public class RegistrarDatosActivity extends AppCompatActivity {
                         Log.w("FAILURE", "Ha habido problemas al crear el usuario. Lo sentimos", e);
                     }
                 });
+    }
+
+    private String encryptPassword(String contraseña){
+        String contraseñaEncriptada = contraseña;
+
+
+        return contraseñaEncriptada;
     }
 }

@@ -24,11 +24,20 @@ import com.example.buscandohogar.Database.DBHelper;
 import com.example.buscandohogar.Database.DBManager;
 import com.example.buscandohogar.classes.Animal;
 import com.example.buscandohogar.classes.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -42,10 +51,15 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageViewLogo;
     private TextInputLayout email,contraseña;
     private DBManager dbManager;
+    private DocumentReference cR;
+    private FirebaseFirestore firebaseFirestore;
+    private CollectionReference usuarios;
+    private CollectionReference animales;
+    private CollectionReference solicitudes;
 
     public static final String TAG = "MainActivity";
+    public static final String TAG_QUERY = "Firestore";
     public static final String DATA_USER = "DatosUsuario";
-
 
 
 
@@ -65,17 +79,10 @@ public class MainActivity extends AppCompatActivity {
         imageViewLogo = findViewById(R.id.imgcircular);
         email = findViewById(R.id.txtEmail);
         contraseña = findViewById(R.id.txtContraseña);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        usuarios = firebaseFirestore.collection("users");
 
-
-//        DBHelper db = DBHelper.getInstance(this);
-//
-//        SQLiteDatabase sqdb = db.getWritableDatabase();
-//        User u = new User("Joaco", "123", "Guillen", "prueba@gmaill.com", "Calle 12 # 34 - 45", 321, "Barranquilla");
-//        ContentValues cValuesUser = u.getContentValues(u);
-//
-//        sqdb.insert("usuarios", null, cValuesUser);
-//        sqdb.close();
-
+        //Se usa para registrar datos.
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,28 +91,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Metodo usado para iniciar sesion
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String user = email.getEditText().getText().toString();
-                String pass = contraseña.getEditText().getText().toString();
-                Intent goPrincipal = new Intent(MainActivity.this, PrincipalActivity.class);
-                startActivity(goPrincipal);
+                final String user = email.getEditText().getText().toString();
+                final String pass = contraseña.getEditText().getText().toString();
+                final Query checkIfExistUser = usuarios.whereEqualTo("email", user);
+                checkIfExistUser.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if( !queryDocumentSnapshots.isEmpty() ){
+                            for( DocumentSnapshot document : queryDocumentSnapshots.getDocuments() ){
+                                Log.d(TAG, "Hola, hemos encontrato el correo "+ document.get("email") + " contraseña: "+ document.get("password") + " ");
+                                if( pass.equals(document.get("password")) ){
+                                    Toast.makeText(MainActivity.this, "Hola "+ document.get("name") + ", Bienvenido a Buscando un Hogar.", Toast.LENGTH_SHORT).show();
+                                    Intent goPrincipal = new Intent(MainActivity.this, PrincipalActivity.class);
+                                    startActivity(goPrincipal);                                    
+                                } else {
+                                    Toast.makeText(MainActivity.this, "La contraseña es incorrecta, intenta nuevamente.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } else {
+                            Log.d(TAG, "No se encontró el usuario");
+                            Toast.makeText(MainActivity.this, "No hemos encontrado un usuario con ese email. Registrate primero.", Toast.LENGTH_SHORT).show();
+                        }
 
-//                if( user.isEmpty() || pass.isEmpty() ){
-//                    Toast.makeText(MainActivity.this, "Ingrese los datos por favor.", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    User userLogin = dbManager.checkUserExist(user,pass);
-//
-//                    if( userLogin.getEmail() != null ){
-//                        Toast.makeText(MainActivity.this, "Bienvenido "+ userLogin.getName() + "", Toast.LENGTH_SHORT).show();
-//                        Intent goPrincipal = new Intent(MainActivity.this, PrincipalActivity.class);
-//                        startActivity(goPrincipal);
-//                    } else {
-//                        Toast.makeText(MainActivity.this, "Los datos de inicio de sesion son incorrectos/no se encuentra registrado", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+                    }
+                });
+
             }
         });
     }
