@@ -1,23 +1,39 @@
 <resources>
     <!-- Style for the whole app. -->
-    <style name="BusncandoUnHogarTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="BusncandoUnHogarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorAccent">@color/colorWhite</item>
-        <item name="actionBarTheme">@style/BuscandoHogarBarStyle</item>
+        <item name="actionBarTheme">@style/BHogarStyle</item>
+    </style>
+
+    <!--   BarStyle     -->
+    <style name="BHogarStyle">
+        <item name="android:textColorPrimary">@color/whiteTextColor</item>
+        <item name="android:fontFamily">@font/simplicity</item>
+        <item name="actionBarStyle">@style/BHogarStyleTitle</item>
+    </style>
+
+    <!--  Title Bar Style  -->
+    <style name="BHogarStyleTitle" parent="Widget.AppCompat.ActionBar">
+        <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
+        <item name="background">@color/colorPrimary</item>
+    </style>
+
+    <style name="ActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/colorSecondary</item>
     </style>
 
     <!-- Style for the bar app -->
     <style name="BuscandoHogarBarStyle">
-        <item name="actionBarStyle">@style/titleActionBarBuscandoHogar</item>
         <item name="fontFamily">@font/simplicity</item>
         <item name="android:textColorPrimary">@color/whiteTextColor</item>
         <item name="android:textSize">2sp</item>
         <item name="backgroundColor">@color/colorPrimary</item>
     </style>
     
-    <style name="titleActionBarBuscandoHogar" parent="Widget.MaterialComponents.Light.ActionBar.Solid">
+    <style name="titleActionBarBuscandoHogar" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">50dp</item>
