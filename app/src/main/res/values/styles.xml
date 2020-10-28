@@ -1,11 +1,38 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!-- Style for the whole app. -->
+    <style name="BusncandoUnHogarTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorAccent">@color/colorWhite</item>
+        <item name="actionBarTheme">@style/BuscandoHogarBarStyle</item>
     </style>
+
+    <!-- Style for the bar app -->
+    <style name="BuscandoHogarBarStyle">
+        <item name="actionBarStyle">@style/titleActionBarBuscandoHogar</item>
+        <item name="fontFamily">@font/simplicity</item>
+        <item name="android:textColorPrimary">@color/whiteTextColor</item>
+        <item name="android:textSize">2sp</item>
+        <item name="backgroundColor">@color/colorPrimary</item>
+    </style>
+    
+    <style name="titleActionBarBuscandoHogar" parent="Widget.MaterialComponents.Light.ActionBar.Solid">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">50dp</item>
+    </style>
+
+    <!-- Colores de la barra de abajo   -->
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorSecondary</item>
+    </style>
+
 
     <style name="proifleDetailsView">
         <item name="android:layout_width">match_parent</item>
@@ -66,6 +93,7 @@
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
     </style>
+
 
 
 </resources>

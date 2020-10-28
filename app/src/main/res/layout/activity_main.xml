@@ -6,12 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+    android:layout_margin="70dp"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical">
 
         <ImageView
@@ -24,7 +25,8 @@
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
-            android:src="@drawable/imagenbuscandohogar"/>
+            android:contentDescription="Logo Buscando Un Hogar"
+            android:src="@drawable/logo_buscando_hogar"/>
 
     </LinearLayout>
 
@@ -37,12 +39,13 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="8dp"
-            android:hint="Email"
+            android:hint="email"
             app:layout_constraintBottom_toTopOf="@+id/txtContraseña"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/email2"
+            app:startIconDrawable="@drawable/arroba_24"
+            app:endIconMode="clear_text"
             tools:ignore="MissingConstraints">
 
             <AutoCompleteTextView
@@ -50,31 +53,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                tools:ignore="LabelFor"
+                android:labelFor="@+id/txtEmail"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="77dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtContraseña"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/txtContraseña"
+            android:hint="contraseña"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:hint="Contraseña"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtEmail"
-            app:startIconDrawable="@drawable/contrasena">
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/password_24">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompletecontra"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
+                android:inputType="textPassword"
+                android:labelFor="@+id/txtContraseña"
                 tools:layout_editor_absoluteX="2dp"
                 tools:layout_editor_absoluteY="15dp" />
         </com.google.android.material.textfield.TextInputLayout>

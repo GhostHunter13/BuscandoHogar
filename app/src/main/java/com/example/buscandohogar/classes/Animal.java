@@ -34,24 +34,24 @@ public class Animal {
     //Method for create random animals
     public List<Animal> createRandomDogs(){
         List<Animal> animales = new ArrayList<>();
-        animales.add(new Animal("Perro", "Walter", 2, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.rotweillermodelo ));
-        animales.add(new Animal("Perro","Pugstavo", 2,"Criollo" , "Un perro muy educado, amado y jugueton" , R.drawable.perro_modelo ));
-        animales.add(new Animal("Perro","Timoteo", 1, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.perro_modelo ));
-        animales.add(new Animal("Perro","Kira", 3, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.rotweillermodelo ));
-        animales.add(new Animal("Perro","Kassandra", 6, "Criollo" , "Un perro muy educado, amado y jugueton" , R.drawable.perro_modelo ));
-        animales.add(new Animal("Perro","Osito", 7, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.rotweillermodelo ));
+//        animales.add(new Animal("Perro", "Walter", 2, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.rotweillermodelo ));
+//        animales.add(new Animal("Perro","Pugstavo", 2,"Criollo" , "Un perro muy educado, amado y jugueton" , R.drawable.perro_modelo ));
+//        animales.add(new Animal("Perro","Timoteo", 1, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.perro_modelo ));
+//        animales.add(new Animal("Perro","Kira", 3, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.rotweillermodelo ));
+//        animales.add(new Animal("Perro","Kassandra", 6, "Criollo" , "Un perro muy educado, amado y jugueton" , R.drawable.perro_modelo ));
+//        animales.add(new Animal("Perro","Osito", 7, "Criollo" , "Un perro muy educado, amado y jugueton" ,R.drawable.rotweillermodelo ));
 
         return animales;
     }
 
     public List<Animal> createRandomCats(){
         List<Animal> animales = new ArrayList<>();
-        animales.add(new Animal("Gato","Camila", 3, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
-        animales.add(new Animal("Gato","Juancho", 4, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
-        animales.add(new Animal("Gato","Stiven", 9, "Criollo" , "Un gato jugueton" ,R.drawable.cat_modelo ));
-        animales.add(new Animal("Gato","Otto", 6, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
-        animales.add(new Animal("Gato","Bella", 1, "Criollo" , "Un gato jugueton" ,R.drawable.cat_modelo ));
-        animales.add(new Animal("Gato","Lucas", 8, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
+//        animales.add(new Animal("Gato","Camila", 3, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
+//        animales.add(new Animal("Gato","Juancho", 4, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
+//        animales.add(new Animal("Gato","Stiven", 9, "Criollo" , "Un gato jugueton" ,R.drawable.cat_modelo ));
+//        animales.add(new Animal("Gato","Otto", 6, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
+//        animales.add(new Animal("Gato","Bella", 1, "Criollo" , "Un gato jugueton" ,R.drawable.cat_modelo ));
+//        animales.add(new Animal("Gato","Lucas", 8, "Criollo" , "Un gato jugueton" , R.drawable.cat_modelo ));
 
         return animales;
     }

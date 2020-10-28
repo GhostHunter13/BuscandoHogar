@@ -5,12 +5,29 @@
     android:layout_height="match_parent"
     tools:context=".fragments.FavoritesFragment">
 
-    <ImageView
-        android:id="@+id/ivNoFavorites"
+    <LinearLayout
+        android:id="@+id/llNoFavorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/corazon_favorite"
-        android:visibility="gone"/>
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivNoFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/perro_lista_vacia"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:text="Tu lista de favoritos está vacía."/>
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnimalesFavorites"
