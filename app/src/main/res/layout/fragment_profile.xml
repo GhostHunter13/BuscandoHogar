@@ -9,262 +9,245 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="3"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
         <!--  Layout con imagen   -->
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvProfile"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/colorAccent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/imgProfile"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>
-
-            <TextView
-                android:id="@+id/txtName"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:text="Pierre Laurens Florez"/>
+            android:layout_height="match_parent"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/stroke_color"
+            android:layout_margin="8dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="0"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txtCity"
-                    android:gravity="center"
+                <!-- Profile quien subió el animal -->
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="Barranquilla"
-                    android:textAppearance="?attr/textAppearanceBody2"/>
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/semicircle"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=", "
-                    android:textAppearance="?attr/textAppearanceBody2"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@color/whiteTextColor"
+                        android:src="@drawable/perro_modelo">
 
-                <TextView
-                    android:id="@+id/txtAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" Atlantico"
-                    android:textAppearance="?attr/textAppearanceBody2"/>
+                    </de.hdodenhof.circleimageview.CircleImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.4"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pierre Laurens Florez"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:textColor="@color/whiteTextColor"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/whiteTextColor"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                            android:text="Barranquilla, Atlantico"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="16dp">
+
+                        <!-- Informacion Personal -->
+                        <RelativeLayout style="@style/styleRelativeLayout">
+
+                            <ImageView
+                                android:id="@+id/imgName"
+                                android:src="@drawable/perfil"
+                                style="@style/styleImageProfile"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/imgName">
+
+                                <TextView
+                                    android:id="@+id/txtMainNameText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Nombre"
+                                    style="@style/styleMainText"/>
+
+                                <TextView
+                                    android:id="@+id/txtMainDescNameText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="false"
+                                    android:text="Pierre Laurens Florez"
+                                    style="@style/styleDescText"/>
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/styleRelativeLayout">
+                            <ImageView
+                                android:id="@+id/imgEmail"
+                                android:src="@drawable/email_new_png"
+                                style="@style/styleImageProfile"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/imgEmail">
+
+                                <TextView
+                                    android:id="@+id/txtMainEmailText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/imgEmail"
+                                    android:text="Email"
+                                    style="@style/styleMainText"/>
+
+                                <TextView
+                                    android:id="@+id/txtMainDescEmailText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/imgEmail"
+                                    android:text="pierre.laurens1210@gmail.com"
+                                    style="@style/styleDescText"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/styleRelativeLayout">
+
+                            <ImageView
+                                android:id="@+id/imgPhone"
+                                android:src="@drawable/phone_new_png"
+                                style="@style/styleImageProfile"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/imgPhone">
+
+                                <TextView
+                                    android:id="@+id/txtMainPhoneText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/imgPhone"
+                                    android:text="Telefono"
+                                    style="@style/styleMainText"/>
+
+                                <TextView
+                                    android:id="@+id/txtMainDescPhoneText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/imgPhone"
+                                    android:text="304 393 6242"
+                                    style="@style/styleDescText"/>
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout style="@style/styleRelativeLayout">
+
+                            <ImageView
+                                android:id="@+id/imgAddress"
+                                android:src="@drawable/addressess_new"
+                                style="@style/styleImageProfile"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/imgAddress">
+
+                                <TextView
+                                    android:id="@+id/txtMainAddressText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/imgAddress"
+                                    android:text="Dirección"
+                                    style="@style/styleMainText"/>
+
+                                <TextView
+                                    android:id="@+id/txtMainDescAddressText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@id/imgAddress"
+                                    android:text="Calle 51 # 14 D 53"
+                                    style="@style/styleDescText"/>
+
+                            </LinearLayout>
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right"
+                            android:layout_margin="20dp"
+                            style="@style/StyleForFloatingButton"
+                            app:srcCompat="@drawable/edit"/>
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
-
-        <!-- Informacion de la cuenta  -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_margin="35dp"
-            android:orientation="vertical">
-            
-            <TextView
-                android:textColor="@color/colorBlack"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Información de la Cuenta"
-                android:layout_marginBottom="20dp"
-                android:textAppearance="?attr/textAppearanceHeadline5"/>
-
-                <RelativeLayout style="@style/styleRelativeLayout">
-
-                    <ImageView
-                        android:id="@+id/imgName"
-                        android:src="@drawable/perfil"
-                        style="@style/styleImageProfile"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_toRightOf="@+id/imgName">
-
-                        <TextView
-                            android:id="@+id/txtMainNameText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Nombre"
-                            style="@style/styleMainText"/>
-
-                        <TextView
-                            android:id="@+id/txtMainDescNameText"
-                            android:textColor="@color/colorBlack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="false"
-                            android:text="Pierre Laurens Florez"
-                            style="@style/styleDescText"/>
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <!-- Separador -->
-                <View style="@style/proifleDetailsView" />
-
-                <RelativeLayout style="@style/styleRelativeLayout">
-
-                    <ImageView
-                        android:id="@+id/imgPhone"
-                        android:src="@drawable/phon"
-                        style="@style/styleImageProfile"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_toRightOf="@+id/imgPhone">
-
-                        <TextView
-                            android:id="@+id/txtMainPhoneText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/imgPhone"
-                            android:text="Telefono"
-                            style="@style/styleMainText"/>
-
-                        <TextView
-                            android:id="@+id/txtMainDescPhoneText"
-                            android:textColor="@color/colorBlack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/imgPhone"
-                            android:text="304 393 6242"
-                            style="@style/styleDescText"/>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <!-- Separador -->
-                <View style="@style/proifleDetailsView" />
-
-                <RelativeLayout style="@style/styleRelativeLayout">
-
-                    <ImageView
-                        android:id="@+id/imgEmail"
-                        android:src="@drawable/arroba"
-                        style="@style/styleImageProfile"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_toRightOf="@+id/imgEmail">
-
-                        <TextView
-                            android:id="@+id/txtMainEmailText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/imgEmail"
-                            android:text="Email"
-                            style="@style/styleMainText"/>
-
-                        <TextView
-                            android:id="@+id/txtMainDescEmailText"
-                            android:textColor="@color/colorBlack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/imgEmail"
-                            android:text="pierre.laurens1210@gmail.com"
-                            style="@style/styleDescText"/>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-                <!-- Separador -->
-                <View style="@style/proifleDetailsView" />
-
-                <RelativeLayout style="@style/styleRelativeLayout">
-
-                    <ImageView
-                        android:id="@+id/imgAddress"
-                        android:src="@drawable/mundo"
-                        style="@style/styleImageProfile"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_toRightOf="@+id/imgAddress">
-
-                        <TextView
-                            android:id="@+id/txtMainAddressText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/imgAddress"
-                            android:text="Dirección"
-                            style="@style/styleMainText"/>
-
-                        <TextView
-                            android:id="@+id/txtMainDescAddressText"
-                            android:textColor="@color/colorBlack"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/imgAddress"
-                            android:text="Calle 51 # 14 D 53"
-                            style="@style/styleDescText"/>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="right"-->
-<!--                android:layout_marginTop="50dp">-->
-
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Editar Perfil"-->
-<!--                    android:layout_marginRight="5dp"/>-->
-
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Eliminar Cuenta"/>-->
-
-<!--            </LinearLayout>-->
-
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btnEditProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_gravity="bottom|right"
-                    android:contentDescription="Editar"
-                    app:srcCompat="@drawable/edit"/>
-
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

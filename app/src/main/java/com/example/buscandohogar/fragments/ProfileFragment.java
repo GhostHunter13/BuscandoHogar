@@ -55,21 +55,21 @@ public class ProfileFragment extends Fragment {
 
 
         Log.d(TAG, "setDatos: "+ storageReference.child("BuscandoUnHogar"));
-        storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                if( context != null ){
-                    Glide.with(context)
-                            .load(uri)
-                            .into(ivProfile);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: Falló");
-            }
-        });
+//        storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                if( context != null ){
+//                    Glide.with(context)
+//                            .load(uri)
+//                            .into(ivProfile);
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d(TAG, "onFailure: Falló");
+//            }
+//        });
 
     }
 
