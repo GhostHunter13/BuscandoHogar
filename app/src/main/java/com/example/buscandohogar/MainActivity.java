@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         usuarios = firebaseFirestore.collection("users");
 
-        //Se usa para registrar datos.
+        //Se usa para enviar al activity de registrar datos.
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

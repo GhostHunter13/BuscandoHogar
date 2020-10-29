@@ -5,12 +5,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_margin="5dp"
     tools:context=".fragments.AnimalesFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabIconTint="@drawable/navigation_view_colored"
+        app:tabTextColor="@drawable/navigation_view_colored"
+        app:tabIndicatorColor="@color/colorSecondary"
+        app:tabIndicatorHeight="5dp"
         app:tabMode="fixed">
 
         <com.google.android.material.tabs.TabItem
@@ -18,19 +23,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Perros"
-            android:icon="@drawable/perro"/>
+            android:icon="@drawable/dog_new_png"/>
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/tabGatos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gatos"
-            android:icon="@drawable/gato"/>
+            android:icon="@drawable/cat_new_png"/>
 
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnimales"
+        android:layout_marginTop="2dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

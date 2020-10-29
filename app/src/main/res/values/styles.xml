@@ -19,10 +19,10 @@
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/colorSecondary</item>
+        <item name="colorPrimary">@color/whiteTextColor</item>
+        <item name="colorOnPrimary">@color/colorPrimary</item>
+        <item name="colorOnSurface">@color/colorSecondary</item>
     </style>
-
 
     <style name="proifleDetailsView">
         <item name="android:layout_width">match_parent</item>
@@ -31,7 +31,6 @@
     </style>
 
     <!-- Estilos para las imagenes del Profile   -->
-
     <style name="viewParent">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -46,14 +45,14 @@
     </style>
 
     <style name="styleMainText" parent="viewParent">
-        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_marginLeft">10dp</item>
     </style>
 
     <style name="styleDescText" parent="viewParent">
-        <item name="android:textColor">@color/blackTextColor</item>
+        <item name="android:textColor">@color/whiteTextColor</item>
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginLeft">10dp</item>
     </style>
@@ -83,6 +82,42 @@
         <item name="android:minWidth">48dp</item>
         <item name="android:minHeight">48dp</item>
     </style>
+
+    <!--  Styles for the TabLayout  -->
+    <style name="AppTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabPaddingStart">6dp</item>
+        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TabLayout</item>
+    </style>
+
+    <!-- for text -->
+    <style name="ThemeOverlay.App.TabLayout" parent="">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSurface">@color/colorSecondary</item>
+        <item name="colorOnSurface">@color/gray</item>
+    </style>
+    
+    <!--  For cardView  -->
+    <style name="Widget.App.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.MediumComponent</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Card" parent="">
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorSurface">@color/colorWhite</item>
+        <item name="colorOnSurface">@color/colorWhite</item>
+    </style>
+    
+    <style name="StyleForFloatingButton" parent="">
+        <item name="colorSecondary">@color/whiteTextColor</item>
+        <item name="colorOnSecondary">@color/whiteTextColor</item>
+        <item name="colorOnSurface">@color/whiteTextColor</item>
+    </style>
+
+
 
 
 
