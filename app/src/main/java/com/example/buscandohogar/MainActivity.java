@@ -60,10 +60,12 @@ MainActivity extends AppCompatActivity {
     public static final String TAG_QUERY = "Firestore";
     public static final String DATA_USER = "DatosUsuario";
 
+    //ESTOS SON LOS PRIVATE PARA EL LOGIN CON GOOGLE
     private GoogleSignInClient mGoogleSignInClient;
     private final static int RC_SIGN_IN = 123;
     private FirebaseAuth mAuth;
 
+    //ONSTART GOOGLE
     @Override
     protected void onStart() {
         super.onStart();
@@ -76,6 +78,7 @@ MainActivity extends AppCompatActivity {
         }
     }
 
+    //ONCRATE, CREATEREGUEST, SIGNIN GOOGLE
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +118,7 @@ MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    //ACTIVITYRESULT, FIREBASEAUTHWITHGOOGLE, GOOGLE
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
