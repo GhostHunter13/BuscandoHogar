@@ -54,6 +54,7 @@ public class FavoritesFragment extends Fragment {
         llNoFavorites = v.findViewById(R.id.llNoFavorites);
         ivNoFavorites = v.findViewById(R.id.ivNoFavorites);
         animalsListFavorites = an.createRandomDogs();
+        animalsListFavorites.clear();
         rvAnimalesFavorites = v.findViewById(R.id.rvAnimalesFavorites);
 
         adapterAnimalsFavorites = new SolicitudAdapter(animalsListFavorites);
