@@ -10,4 +10,11 @@
 
     <string name="allRightsReserved">© 2020 Buscando un Hogar™. Todos los derechos reservados.</string>
 
+    <array name="typesAnimals">
+        <item>Seleccione</item>
+        <item>Perro</item>
+        <item>Gato</item>
+        <item>Otro</item>
+    </array>
+
 </resources>

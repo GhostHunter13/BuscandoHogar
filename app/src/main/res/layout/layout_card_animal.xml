@@ -32,7 +32,7 @@
 
                     <ImageView
                         android:id="@+id/imgProfileAddAnimal"
-                        android:src="@drawable/profile"
+                        android:src="@drawable/profile_new_png"
                         android:layout_marginLeft="5dp"
                         style="@style/styleImageProfile"/>
 
@@ -148,7 +148,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/colorPrimary"
-                        android:button="@drawable/corazon_favorite"
+                        android:button="@drawable/favorite_add_new"
                         android:layout_margin="10dp"/>
 
                     <View
