@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <!--  Para el Icono y el nombre  -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/buscandoHogarToolbar"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -26,14 +24,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textAppearance="@style/titleActionBarBuscandoHogar"
-            android:text="Buscando un Hogar"/>
+            android:text="Buscando un Hogar"
+            android:textAppearance="@style/titleActionBarBuscandoHogar" />
 
     </com.google.android.material.appbar.MaterialToolbar>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
         android:layout_margin="40dp"
         android:orientation="vertical">
 
@@ -47,20 +45,20 @@
                 android:id="@+id/imgcircular"
                 android:layout_width="281dp"
                 android:layout_height="197dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
                 android:contentDescription="Logo Buscando Un Hogar"
-                android:src="@drawable/logo_buscando_hogar"/>
+                android:scaleType="fitCenter"
+                android:src="@drawable/logo_buscando_hogar" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -71,12 +69,12 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:hint="email"
+                app:endIconMode="clear_text"
                 app:layout_constraintBottom_toTopOf="@+id/txtContraseña"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:startIconDrawable="@drawable/arroba_24"
-                app:endIconMode="clear_text"
                 tools:ignore="MissingConstraints">
 
                 <AutoCompleteTextView
@@ -90,19 +88,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/txtContraseña"
-                android:hint="contraseña"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:hint="contraseña"
+                app:endIconMode="password_toggle"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtEmail"
-                app:endIconMode="password_toggle"
                 app:startIconDrawable="@drawable/password_24">
 
                 <AutoCompleteTextView
@@ -115,11 +113,11 @@
                     tools:layout_editor_absoluteY="15dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-       </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -136,7 +134,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5"/>
+                android:layout_weight=".5" />
 
             <Button
                 android:id="@+id/btnRegistrarse"
@@ -148,17 +146,22 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <ImageButton
+                android:id="@+id/google_signIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/google" />
         </LinearLayout>
 
     </LinearLayout>
-
 
 
 </TableLayout>
