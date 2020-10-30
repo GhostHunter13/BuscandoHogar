@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.buscandohogar.R;
@@ -30,6 +31,7 @@ public class ProfileFragment extends Fragment {
 
     View v;
     private ImageView ivProfile;
+    private TextView txtMainName, txtCity, txtName, txtEmail, txtPhone, txtAddress;
     public static final String TAG = "BUCKETNAME";
     FirebaseUser user;
     FirebaseAuth mAuth;
@@ -54,6 +56,13 @@ public class ProfileFragment extends Fragment {
     private void setDatos() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference();
+        txtMainName = v.findViewById(R.id.txtNameUser);
+        txtCity = v.findViewById(R.id.txtCity);
+        txtName = v.findViewById(R.id.txtMainDescNameText);
+        txtEmail = v.findViewById(R.id.txtMainDescEmailText);
+        txtPhone = v.findViewById(R.id.txtMainDescPhoneText);
+        txtAddress = v.findViewById(R.id.txtMainDescAddressText);
+
         mAuth = FirebaseAuth.getInstance();
         user =  mAuth.getCurrentUser();
         context = getContext();
@@ -63,6 +72,13 @@ public class ProfileFragment extends Fragment {
             Glide.with(context)
                     .load(user.getPhotoUrl())
                     .into(ivProfile);
+            //Seteamos los datos
+            txtMainName.setText(user.getDisplayName());
+            txtCity.setText(user.getProviderId());
+            txtName.setText(user.getDisplayName());
+            txtEmail.setText(user.getEmail());
+            txtPhone.setText(user.getPhoneNumber());
+            txtAddress.setText(user.getUid());
         }
 
 //        storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

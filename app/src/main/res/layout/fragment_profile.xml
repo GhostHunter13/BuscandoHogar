@@ -68,6 +68,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtNameUser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pierre Laurens Florez"
@@ -76,6 +77,7 @@
                             android:textColor="@color/whiteTextColor"/>
 
                         <TextView
+                            android:id="@+id/txtCity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/whiteTextColor"
