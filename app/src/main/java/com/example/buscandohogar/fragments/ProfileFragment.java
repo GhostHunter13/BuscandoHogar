@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.example.buscandohogar.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -29,6 +31,8 @@ public class ProfileFragment extends Fragment {
     View v;
     private ImageView ivProfile;
     public static final String TAG = "BUCKETNAME";
+    FirebaseUser user;
+    FirebaseAuth mAuth;
     Context context;
 
     public ProfileFragment() {
@@ -50,11 +54,17 @@ public class ProfileFragment extends Fragment {
     private void setDatos() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference();
+        mAuth = FirebaseAuth.getInstance();
+        user =  mAuth.getCurrentUser();
         context = getContext();
-        ivProfile = v.findViewById(R.id.imgProfile);
+        ivProfile = v.findViewById(R.id.ivProfile);
 
+        if( user != null ){
+            Glide.with(context)
+                    .load(user.getPhotoUrl())
+                    .into(ivProfile);
+        }
 
-        Log.d(TAG, "setDatos: "+ storageReference.child("BuscandoUnHogar"));
 //        storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
 //            public void onSuccess(Uri uri) {

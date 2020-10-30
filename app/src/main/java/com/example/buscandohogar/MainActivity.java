@@ -47,7 +47,7 @@ import java.util.List;
 public class
 MainActivity extends AppCompatActivity {
     private Button btnLogin, btnRegistrarse;
-    private ImageView imageViewLogo;
+    private ImageView imageViewLogo, imageViewGoogle;
     private TextInputLayout email,contraseña;
     private DBManager dbManager;
     private DocumentReference cR;
@@ -72,7 +72,6 @@ MainActivity extends AppCompatActivity {
         if(user!=null){
             Intent intent = new Intent(getApplicationContext(),PrincipalActivity.class);
             startActivity(intent);
-
         }
     }
 
@@ -81,20 +80,7 @@ MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setDatos();
-
-        mAuth = FirebaseAuth.getInstance();
-
         createRequest();
-
-        findViewById(R.id.google_signIn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
-
-            }
-        });
-
-
     }
 
     private void createRequest() {
@@ -129,8 +115,7 @@ MainActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                // ...
+                Toast.makeText(this, "No se ha podido iniciar sesion con Google. Error Message " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -142,33 +127,39 @@ MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Log.d(TAG, "User info: " + user.getEmail() + " Nombre: "+ user.getPhoneNumber() + " imagen: "+ user.getPhotoUrl() );
                             Intent intent = new Intent(getApplicationContext(),PrincipalActivity.class);
                             startActivity(intent);
-
                         } else {
                             Toast.makeText(MainActivity.this, "sorry out failed", Toast.LENGTH_SHORT).show();
-
                         }
-
-                        // ...
                     }
                 });
     }
 
 
     private void setDatos() {
+        mAuth = FirebaseAuth.getInstance();
         dbManager = new DBManager(this);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
         imageViewLogo = findViewById(R.id.imgcircular);
+        imageViewGoogle = findViewById(R.id.google_signIn);
         email = findViewById(R.id.txtEmail);
         contraseña = findViewById(R.id.txtContraseña);
         firebaseFirestore = FirebaseFirestore.getInstance();
         usuarios = firebaseFirestore.collection("users");
 
-        //Se usa para enviar al activity de registrar datos.
+        //Metodo onClick para iniciar sesion con Google.
+        imageViewGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+
+        //Metodo onClick para enviar al form de Registrar Usuario.
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -177,11 +168,10 @@ MainActivity extends AppCompatActivity {
             }
         });
 
-        //Metodo usado para iniciar sesion
+        //Metodo onClick para iniciar sesion con Usuario y Contraseña.
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 final String user = email.getEditText().getText().toString();
                 final String pass = contraseña.getEditText().getText().toString();
                 final Query checkIfExistUser = usuarios.whereEqualTo("email", user);
@@ -203,10 +193,8 @@ MainActivity extends AppCompatActivity {
                             Log.d(TAG, "No se encontró el usuario");
                             Toast.makeText(MainActivity.this, "No hemos encontrado un usuario con ese email. Registrate primero.", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
-
             }
         });
     }
