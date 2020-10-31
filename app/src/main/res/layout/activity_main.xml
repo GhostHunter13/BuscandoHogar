@@ -134,7 +134,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight=".5" />
+                android:layout_weight="" />
 
             <Button
                 android:id="@+id/btnRegistrarse"
@@ -185,20 +185,21 @@
                     android:layout_marginLeft="100dp"/>
 
 
-
-
-                <ImageButton
-                    android:id="@+id/facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebookLogin"
+                    android:layout_width="19dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginRight="100dp"
                     android:layout_weight="1"
-                    android:layout_gravity="center"
                     android:background="#ffffff"
-                    app:srcCompat="@drawable/facebooklogin"
+                    android:drawableBottom="@drawable/facebooklogin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginRight="100dp"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
+
+
+
 
 
         </LinearLayout>
