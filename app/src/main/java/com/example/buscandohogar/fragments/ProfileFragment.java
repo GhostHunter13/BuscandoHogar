@@ -1,6 +1,7 @@
 package com.example.buscandohogar.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,11 +13,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.buscandohogar.MainActivity;
 import com.example.buscandohogar.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +37,7 @@ public class ProfileFragment extends Fragment {
     View v;
     private ImageView ivProfile;
     private TextView txtMainName, txtCity, txtName, txtEmail, txtPhone, txtAddress;
+    Button logout;
     public static final String TAG = "BUCKETNAME";
     FirebaseUser user;
     FirebaseAuth mAuth;
@@ -43,7 +49,10 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +60,8 @@ public class ProfileFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_profile, container, false);
         setDatos();
         return v;
+
+
     }
 
     private void setDatos() {
@@ -62,6 +73,14 @@ public class ProfileFragment extends Fragment {
         txtEmail = v.findViewById(R.id.txtMainDescEmailText);
         txtPhone = v.findViewById(R.id.txtMainDescPhoneText);
         txtAddress = v.findViewById(R.id.txtMainDescAddressText);
+        logout = v.findViewById(R.id.btnlagout);
+
+
+
+
+
+
+
 
         mAuth = FirebaseAuth.getInstance();
         user =  mAuth.getCurrentUser();
@@ -80,6 +99,20 @@ public class ProfileFragment extends Fragment {
             txtPhone.setText(user.getPhoneNumber());
             txtAddress.setText(user.getUid());
         }
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(context.getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+
+
+        });
+
+
 
 //        storageReference.child("BuscandoUnHogar/Frieza1.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override

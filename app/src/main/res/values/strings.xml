@@ -10,4 +10,8 @@
 
     <string name="allRightsReserved">© 2020 Buscando un Hogar™. Todos los derechos reservados.</string>
 
+    <string name="facebook_app_id">387788009022778</string>
+    <string name="fb_login_protocol_scheme">fb387788009022778</string>
+
+
 </resources>

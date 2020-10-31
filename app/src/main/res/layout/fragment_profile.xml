@@ -244,6 +244,18 @@
                             style="@style/StyleForFloatingButton"
                             app:srcCompat="@drawable/edit"/>
 
+                        <Button
+                            android:id="@+id/btnlagout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Logout"
+                            android:inputType=""
+                            android:layout_gravity="bottom|left"
+                            android:textColor="@android:color/black"
+                            android:background="@android:color/white"
+                            android:layout_margin="20dp"
+                            style="@style/StyleForFloatingButton"/>
+
                     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                 </LinearLayout>
