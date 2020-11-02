@@ -9,10 +9,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.buscandohogar.Database.DBManager;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -39,9 +45,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class
@@ -55,6 +63,10 @@ MainActivity extends AppCompatActivity {
     private CollectionReference usuarios;
     private CollectionReference animales;
     private CollectionReference solicitudes;
+
+    //PRIVATE DEL FACEBOOK LOGIN
+    private LoginButton facebookLogin;
+    private CallbackManager callbackManager;
 
     public static final String TAG = "MainActivity";
     public static final String TAG_QUERY = "Firestore";
@@ -152,6 +164,44 @@ MainActivity extends AppCompatActivity {
         contraseña = findViewById(R.id.txtContraseña);
         firebaseFirestore = FirebaseFirestore.getInstance();
         usuarios = firebaseFirestore.collection("users");
+        facebookLogin = findViewById(R.id.facebookLogin);
+
+        callbackManager = CallbackManager.Factory.create();
+        facebookLogin.setReadPermissions(Arrays.asList("email", "public_profile"));
+
+
+
+        facebookLogin = (LoginButton) findViewById(R.id. facebookLogin);
+        facebookLogin.setReadPermissions("email");
+        // If using in a fragment
+
+
+        // Callback registration
+        facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+
+        });
+
+        //Metodo onClick para iniciar sesion con Facebook.
+        facebookLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
 
         //Metodo onClick para iniciar sesion con Google.
         imageViewGoogle.setOnClickListener(new View.OnClickListener() {
@@ -199,5 +249,9 @@ MainActivity extends AppCompatActivity {
                 });
             }
         });
+
+
     }
+
+
 }
