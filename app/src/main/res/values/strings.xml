@@ -10,17 +10,14 @@
 
     <string name="allRightsReserved">© 2020 Buscando un Hogar™. Todos los derechos reservados.</string>
 
-<<<<<<< HEAD
     <string name="facebook_app_id">387788009022778</string>
     <string name="fb_login_protocol_scheme">fb387788009022778</string>
 
-=======
     <array name="typesAnimals">
         <item>Seleccione</item>
         <item>Perro</item>
         <item>Gato</item>
         <item>Otro</item>
     </array>
->>>>>>> a623b9c8415659a65cf41231d0ab54ad9510ebfb
 
 </resources>

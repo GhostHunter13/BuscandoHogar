@@ -142,10 +142,8 @@ MainActivity extends AppCompatActivity {
                 });
     }
 
-
     private void setDatos() {
         mAuth = FirebaseAuth.getInstance();
-        dbManager = new DBManager(this);
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
         imageViewLogo = findViewById(R.id.imgcircular);

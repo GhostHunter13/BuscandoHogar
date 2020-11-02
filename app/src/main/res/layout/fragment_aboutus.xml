@@ -8,177 +8,390 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="3"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
-        <!--  Layout con imagen   -->
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvAboutus"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/gray"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:layout_margin="8dp">
 
-            <!-- Debe ir el logo -->
-            <ImageView
-                android:id="@+id/imgProfile"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:src="@drawable/perfil"/>
-
-            <TextView
-                android:id="@+id/txtName"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                android:text="Buscando un Hogar"/>
-
-        </LinearLayout>
-
-        <!-- Sobre Buscando un hogar  -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:layout_margin="35dp"
-            android:orientation="vertical">
-
-<!--            <TextView-->
-<!--                android:textColor="@color/colorBlack"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Sobre Buscando un Hogar"-->
-<!--                android:layout_marginBottom="20dp"-->
-<!--                android:textAppearance="?attr/textAppearanceHeadline6"/>-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/gray"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:gravity="center"
-                android:text="@string/descriptionApp"/>
-
-            <View style="@style/proifleDetailsView"/>
-
-            <RelativeLayout style="@style/styleRelativeLayout">
-
-                <ImageView
-                    android:id="@+id/imgPhoneApp"
-                    android:src="@drawable/phon"
-                    style="@style/styleImageProfile"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_toRightOf="@+id/imgPhoneApp">
-
-                    <TextView
-                        android:id="@+id/txtMainPhoneText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Telefono"
-                        style="@style/styleMainText"/>
-
-                    <TextView
-                        android:id="@+id/txtMainDescPhoneText"
-                        android:textColor="@color/gray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="false"
-                        android:text="+57 304 393 6242"
-                        style="@style/styleDescText"/>
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <View style="@style/proifleDetailsView"/>
-
-            <RelativeLayout style="@style/styleRelativeLayout">
-
-                <ImageView
-                    android:id="@+id/imgEmailApp"
-                    android:src="@drawable/arroba"
-                    style="@style/styleImageProfile"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_toRightOf="@+id/imgEmailApp">
-
-                    <TextView
-                        android:id="@+id/txtMainEmailText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Email"
-                        style="@style/styleMainText"/>
-
-                    <TextView
-                        android:id="@+id/txtMainDescEmailText"
-                        android:textColor="@color/gray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="false"
-                        android:text="buscandohogar@gmail.com"
-                        style="@style/styleDescText"/>
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <View style="@style/proifleDetailsView"/>
-
+            <!--  Layout con imagen   -->
             <LinearLayout
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:gravity="center">
+                android:layout_height="match_parent"
+                android:weightSum="0"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imgFacebookApp"
-                    android:src="@drawable/facebook_icon"
-                    style="@style/styleSocialMedia"/>
+                <!-- Profile quien subió el animal -->
 
-                <ImageView
-                    android:id="@+id/imgInstagramApp"
-                    android:src="@drawable/instagram_icon"
-                    style="@style/styleSocialMedia"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.8"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:background="@drawable/semicircle"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imgTwitterApp"
-                    android:src="@drawable/twitter_icon"
-                    style="@style/styleSocialMedia"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/perro_modelo">
+
+                    </de.hdodenhof.circleimageview.CircleImageView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.4"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtNameUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Buscando un Hogar"
+                            android:textStyle="bold"
+                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                            android:textColor="@color/whiteTextColor"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="16dp">
+
+                        <!-- Informacion Personal -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/gray"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:gravity="center"
+                            android:text="@string/descriptionApp"/>
+
+                        <View style="@style/proifleDetailsView"/>
+
+                        <RelativeLayout style="@style/styleRelativeLayout">
+
+                            <ImageView
+                                android:id="@+id/imgPhoneApp"
+                                android:src="@drawable/phon"
+                                style="@style/styleImageProfile"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/imgPhoneApp">
+
+                                <TextView
+                                    android:id="@+id/txtMainPhoneText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Telefono"
+                                    style="@style/styleMainText"/>
+
+                                <TextView
+                                    android:id="@+id/txtMainDescPhoneText"
+                                    android:textColor="@color/gray"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="false"
+                                    android:text="+57 304 393 6242"
+                                    style="@style/styleDescText"/>
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <View style="@style/proifleDetailsView"/>
+
+                        <RelativeLayout style="@style/styleRelativeLayout">
+
+                            <ImageView
+                                android:id="@+id/imgEmailApp"
+                                android:src="@drawable/arroba"
+                                style="@style/styleImageProfile"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_toRightOf="@+id/imgEmailApp">
+
+                                <TextView
+                                    android:id="@+id/txtMainEmailText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Email"
+                                    style="@style/styleMainText"/>
+
+                                <TextView
+                                    android:id="@+id/txtMainDescEmailText"
+                                    android:textColor="@color/gray"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentBottom="false"
+                                    android:text="buscandohogar@gmail.com"
+                                    style="@style/styleDescText"/>
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                        <View style="@style/proifleDetailsView"/>
+
+                        <LinearLayout
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/imgFacebookApp"
+                                android:src="@drawable/facebook_icon"
+                                style="@style/styleSocialMedia"/>
+
+                            <ImageView
+                                android:id="@+id/imgInstagramApp"
+                                android:src="@drawable/instagram_icon"
+                                style="@style/styleSocialMedia"/>
+
+                            <ImageView
+                                android:id="@+id/imgTwitterApp"
+                                android:src="@drawable/twitter_icon"
+                                style="@style/styleSocialMedia"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textColor="@color/gray"
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                android:text="@string/allRightsReserved" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".5"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|right"
+                            android:layout_margin="20dp"
+                            style="@style/StyleForFloatingButton"
+                            app:srcCompat="@drawable/edit"/>
+
+                        <Button
+                            android:id="@+id/btnlagout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Logout"
+                            android:inputType=""
+                            android:layout_gravity="bottom|left"
+                            android:textColor="@android:color/black"
+                            android:background="@android:color/white"
+                            android:layout_margin="20dp"
+                            style="@style/StyleForFloatingButton"/>
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/gray"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- Debe ir el logo -->
+                <ImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:src="@drawable/perfil"/>
+
+                <TextView
+                    android:id="@+id/txtName"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    android:text="Buscando un Hogar"/>
+
+            </LinearLayout>
+
+            <!-- Sobre Buscando un hogar  -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:layout_margin="35dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/gray"
-                    android:textAppearance="?attr/textAppearanceCaption"
-                    android:text="@string/allRightsReserved" />
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:gravity="center"
+                    android:text="@string/descriptionApp"/>
 
+                <View style="@style/proifleDetailsView"/>
+
+                <RelativeLayout style="@style/styleRelativeLayout">
+
+                    <ImageView
+                        android:id="@+id/imgPhoneApp"
+                        android:src="@drawable/phon"
+                        style="@style/styleImageProfile"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/imgPhoneApp">
+
+                        <TextView
+                            android:id="@+id/txtMainPhoneText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Telefono"
+                            style="@style/styleMainText"/>
+
+                        <TextView
+                            android:id="@+id/txtMainDescPhoneText"
+                            android:textColor="@color/gray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="false"
+                            android:text="+57 304 393 6242"
+                            style="@style/styleDescText"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView"/>
+
+                <RelativeLayout style="@style/styleRelativeLayout">
+
+                    <ImageView
+                        android:id="@+id/imgEmailApp"
+                        android:src="@drawable/arroba"
+                        style="@style/styleImageProfile"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/imgEmailApp">
+
+                        <TextView
+                            android:id="@+id/txtMainEmailText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            style="@style/styleMainText"/>
+
+                        <TextView
+                            android:id="@+id/txtMainDescEmailText"
+                            android:textColor="@color/gray"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="false"
+                            android:text="buscandohogar@gmail.com"
+                            style="@style/styleDescText"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View style="@style/proifleDetailsView"/>
+
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/imgFacebookApp"
+                        android:src="@drawable/facebook_icon"
+                        style="@style/styleSocialMedia"/>
+
+                    <ImageView
+                        android:id="@+id/imgInstagramApp"
+                        android:src="@drawable/instagram_icon"
+                        style="@style/styleSocialMedia"/>
+
+                    <ImageView
+                        android:id="@+id/imgTwitterApp"
+                        android:src="@drawable/twitter_icon"
+                        style="@style/styleSocialMedia"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/gray"
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        android:text="@string/allRightsReserved" />
+
+                </LinearLayout>
             </LinearLayout>
-
-
-
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
