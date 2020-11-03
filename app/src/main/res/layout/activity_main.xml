@@ -32,13 +32,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="40dp"
+        android:layout_margin="20dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical">
 
             <ImageView
@@ -134,7 +134,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="" />
+                android:layout_weight=".1" />
 
             <Button
                 android:id="@+id/btnRegistrarse"
@@ -149,67 +149,31 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center">
 
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Continuar con?"
-                android:textSize="20dp"
-                android:textColor="#AAAAAA">
-
-            </TextView>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageButton
+                <Button
                     android:id="@+id/google_signIn"
-                    android:layout_width="wrap_content"
+                    android:background="#3B5998"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:background="#ffffff"
-                    app:srcCompat="@drawable/google"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="100dp"/>
+                    android:textAllCaps="false"
+                    android:text="Inicia con Gmail"
+                    android:textColor="#ffffff" />
 
-
-                <com.facebook.login.widget.LoginButton
+                <Button
                     android:id="@+id/facebookLogin"
-                    android:layout_width="19dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="100dp"
-                    android:layout_weight="1"
-                    android:background="#ffffff"
-                    android:drawableBottom="@drawable/facebooklogin"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-
-
-
+                    android:background="#3B5998"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="Inicia con Facebook"
+                    android:textColor="#ffffff"/>
 
         </LinearLayout>
 
-
-
-
-
     </LinearLayout>
-
 
 </TableLayout>
 

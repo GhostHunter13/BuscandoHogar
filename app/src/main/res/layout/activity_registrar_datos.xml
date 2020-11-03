@@ -10,33 +10,17 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:orientation="vertical">
 
         <!-- IMAGEN Y REGISTRO USUARIO  -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight=".1"
             android:orientation="vertical"
             android:gravity="center">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="281dp"
-                android:layout_height="197dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="7dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.031"
-                app:srcCompat="@drawable/profileadd"
-                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/txtName"
@@ -45,181 +29,171 @@
                 android:gravity="center"
                 android:text="Registro de Usuario"
                 android:textAppearance="?attr/textAppearanceHeadline6"
-                android:textSize="30dp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_margin="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txtNombres"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:hint="Nombres"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginRight="2dp"
-                        app:startIconDrawable="@drawable/profile">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="none" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txtApellidos"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="2dp"
-                        android:hint="Apellidos"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/txtNombres"
-                        app:startIconDrawable="@drawable/profile">
-
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="none" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </LinearLayout>
+                android:layout_margin="5dp">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtTel"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="E-mail"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/arroba_24">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorSecondary"
+                        android:inputType="text"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtNombres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nombres"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/profile">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorSecondary"
+                        android:inputType="text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtApellidos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Apellidos"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/profile">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorSecondary"
+                        android:inputType="text"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Telefono"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/txtApellidos"
+                    app:errorEnabled="true"
                     app:startIconDrawable="@drawable/phone">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:background="@color/colorSecondary"
+                        android:inputType="number"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtCiudad"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Ciudad"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/txtTel"
+                    app:errorEnabled="true"
                     app:startIconDrawable="@drawable/ciudad">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:background="@color/colorSecondary"
+                        android:inputType="text"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/txtDireccion"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Direccion"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/txtTel"
+                    app:errorEnabled="true"
                     app:startIconDrawable="@drawable/direccioncasa">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:background="@color/colorSecondary"
+                        android:inputType="text"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txtEmail"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/txtContraseña"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="E-mail"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/txtApellidos"
-                    app:startIconDrawable="@drawable/arroba_24">
+                    android:hint="Contraseña"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/password_24">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:background="@color/colorSecondary"
+                        android:inputType="textPassword"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <LinearLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtConfirmarContraseña"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:hint="Confirmar Contraseña"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/password_24">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txtContraseña"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Contraseña"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/txtEmail"
-                        android:layout_marginRight="2dp"
-                        app:startIconDrawable="@drawable/password_24">
+                        android:background="@color/colorSecondary"
+                        android:inputType="textPassword"/>
 
-                        <AutoCompleteTextView
-                            android:id="@+id/completecontra"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword"
-                            android:labelFor="@+id/txtContraseña"
-                            tools:layout_editor_absoluteX="2dp"
-                            tools:layout_editor_absoluteY="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txtConfirmarContraseña"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="Confirmar Contraseña"
-                        android:layout_marginLeft="2dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/txtContraseña"
-                        app:startIconDrawable="@drawable/password_24">
 
-                        <AutoCompleteTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/autoCompletecontra"
-                            android:inputType="textPassword" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
-                </LinearLayout>
+                <Button
+                    android:id="@+id/btnAtras"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="Atras"
+                    app:layout_constraintEnd_toStartOf="@+id/button2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtConfirmarContraseña"/>
 
                 <Button
                     android:id="@+id/btnContinuar"
@@ -231,8 +205,7 @@
                     android:text="Continuar"
                     app:layout_constraintEnd_toStartOf="@+id/button2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtConfirmarContraseña"
-                    tools:ignore="MissingConstraints" />
+                    app:layout_constraintTop_toBottomOf="@+id/txtConfirmarContraseña"/>
 
             </LinearLayout>
 

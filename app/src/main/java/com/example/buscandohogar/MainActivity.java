@@ -54,7 +54,7 @@ import java.util.List;
 
 public class
 MainActivity extends AppCompatActivity {
-    private Button btnLogin, btnRegistrarse;
+    private Button btnLogin, btnRegistrarse, btnFacebookLogin, btnGoogleLogin;
     private ImageView imageViewLogo, imageViewGoogle;
     private TextInputLayout email,contraseña;
     private DBManager dbManager;
@@ -159,44 +159,44 @@ MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnRegistrarse = findViewById(R.id.btnRegistrarse);
         imageViewLogo = findViewById(R.id.imgcircular);
-        imageViewGoogle = findViewById(R.id.google_signIn);
+        btnGoogleLogin = findViewById(R.id.google_signIn);
         email = findViewById(R.id.txtEmail);
         contraseña = findViewById(R.id.txtContraseña);
         firebaseFirestore = FirebaseFirestore.getInstance();
         usuarios = firebaseFirestore.collection("users");
-        facebookLogin = findViewById(R.id.facebookLogin);
+        btnFacebookLogin = findViewById(R.id.facebookLogin);
 
-        callbackManager = CallbackManager.Factory.create();
-        facebookLogin.setReadPermissions(Arrays.asList("email", "public_profile"));
+//        callbackManager = CallbackManager.Factory.create();
+//        facebookLogin.setReadPermissions(Arrays.asList("email", "public_profile"));
 
 
 
-        facebookLogin = (LoginButton) findViewById(R.id. facebookLogin);
-        facebookLogin.setReadPermissions("email");
+//        facebookLogin = (LoginButton) findViewById(R.id. facebookLogin);
+//        facebookLogin.setReadPermissions("email");
         // If using in a fragment
 
 
         // Callback registration
-        facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-
-        });
+//        facebookLogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                // App code
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                // App code
+//            }
+//
+//            @Override
+//            public void onError(FacebookException exception) {
+//                // App code
+//            }
+//
+//        });
 
         //Metodo onClick para iniciar sesion con Facebook.
-        facebookLogin.setOnClickListener(new View.OnClickListener() {
+        btnFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
@@ -204,7 +204,7 @@ MainActivity extends AppCompatActivity {
         });
 
         //Metodo onClick para iniciar sesion con Google.
-        imageViewGoogle.setOnClickListener(new View.OnClickListener() {
+        btnGoogleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();

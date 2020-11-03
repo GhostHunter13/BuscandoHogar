@@ -6,49 +6,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.buscandohogar.Database.DBManager;
-import com.example.buscandohogar.classes.Solicitud;
+import com.example.buscandohogar.Utils.Utilidades;
 import com.example.buscandohogar.classes.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.regex.Pattern;
 
 public class RegistrarDatosActivity extends AppCompatActivity {
 
-    private TextInputLayout txtNombres;
-    private TextInputLayout txtApellidos;
-    private TextInputLayout txtTelefono;
-    private TextInputLayout txtCiudad;
-    private TextInputLayout txtDireccion;
-    private TextInputLayout txtEmail;
-    private TextInputLayout txtContraseña;
-    private TextInputLayout txtConfirmarContraseña;
-    private Button Continuar;
+    private static String TAG = "RegistroDatos";
+    private TextInputLayout txtNombres, txtApellidos, txtTelefono, txtCiudad,
+            txtDireccion, txtEmail, txtContraseña, txtConfirmarContraseña;
+    private Button btnContinuar, btnAtras;
 
-    //VARIABLES DE LOS DATOS QUE VAMOS A REGISTRAR
-
-    private String nombres = "";
-    private String apellidos = "";
-    private int telefono = 0;
-    private String ciudad = "";
-    private String direccion = "";
-    private String email = "";
-    private String contraseña = "";
-    private String confirmarcontraseña = "";
+    private String nombres, apellidos, ciudad, direccion, email, contraseña, confirmarContraseña;
+    private Integer telefono;
 
     FirebaseAuth mAuth;
     FirebaseFirestore db;
@@ -56,22 +44,32 @@ public class RegistrarDatosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_datos);
+        setDatos();
+    }
 
-
+    private void setDatos() {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
         txtNombres = findViewById(R.id.txtNombres);
         txtApellidos = findViewById(R.id.txtApellidos);
-        txtTelefono = findViewById(R.id.txtTel);
+        txtTelefono = findViewById(R.id.txtPhone);
         txtCiudad = findViewById(R.id.txtCiudad);
         txtDireccion = findViewById(R.id.txtDireccion);
         txtEmail = findViewById(R.id.txtEmail);
         txtContraseña = findViewById(R.id.txtContraseña);
         txtConfirmarContraseña = findViewById(R.id.txtConfirmarContraseña);
-        Continuar = (Button) findViewById(R.id.btnContinuar);
+        btnContinuar = (Button) findViewById(R.id.btnContinuar);
+        btnAtras = findViewById(R.id.btnAtras);
 
-        Continuar.setOnClickListener(new View.OnClickListener() {
+        txtNombres.addOnEditTextAttachedListener(new TextInputLayout.OnEditTextAttachedListener() {
+            @Override
+            public void onEditTextAttached() {
+                txtNombres.setError(null);
+            }
+        });
+
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nombres = txtNombres.getEditText().getText().toString();
@@ -81,39 +79,129 @@ public class RegistrarDatosActivity extends AppCompatActivity {
                 email = txtEmail.getEditText().getText().toString();
                 telefono = txtTelefono.getEditText().getText().toString().isEmpty() ? 0 : 1;
                 contraseña = txtContraseña.getEditText().getText().toString();
-                confirmarcontraseña = txtConfirmarContraseña.getEditText().getText().toString();
+                confirmarContraseña = txtConfirmarContraseña.getEditText().getText().toString();
 
-
-                if (!nombres.isEmpty() && !apellidos.isEmpty() && telefono > 0 && !ciudad.isEmpty() && !direccion.isEmpty() && !email.isEmpty() && !contraseña.isEmpty() && !confirmarcontraseña.isEmpty()) {
-
-                    if (contraseña.length() >= 8){
-                        registerUser();
-                    }else{
-                        Toast.makeText(RegistrarDatosActivity.this, "la contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
-                    }
+                //Se valida el email primero
+                if( validarEmail(email) ){
+                    CollectionReference usuarios = db.collection("users");
+                    Query checkIfExistUser = usuarios.whereEqualTo("email", email);
+                    checkIfExistUser.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            if( !queryDocumentSnapshots.isEmpty() ){
+                                txtEmail.setError(getString(R.string.errorEmailExiste));
+                            } else {
+                                txtEmail.setError(null);
+                                if( validarInfoRegistro() ){
+                                    if (contraseña.length() >= 8){
+                                        User user = new User();
+                                        user.setName(nombres);
+                                        user.setLastname(apellidos);
+                                        user.setPhone(telefono);
+                                        user.setCity(ciudad);
+                                        user.setAddress(direccion);
+                                        user.setEmail(email);
+                                        user.setPassword(encryptPassword(contraseña));
+                                        registerUser(user);
+                                    }else{
+                                        Toast.makeText(RegistrarDatosActivity.this, "la contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
-                    else{
-                    Toast.makeText(RegistrarDatosActivity.this, "Debe completar los campos", Toast.LENGTH_SHORT).show();
-                }
+            }
+        });
 
+        btnAtras.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegistrarDatosActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
 
+    private boolean validarEmail(String emailUser){
+        boolean validar = true;
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        if( emailUser.trim().isEmpty() ||
+                !pattern.matcher(emailUser).matches() ){
+            txtEmail.setError(getString(R.string.errorEmail));
+            validar = false;
+        } else {
+            txtEmail.setError(null);
+        }
+        return validar;
+    }
+
+    /**
+     * Meotod para validar los campos del formulario
+     */
+    private boolean validarInfoRegistro(){
+        boolean valido = true;
+        if( nombres.trim().isEmpty() ){
+            txtNombres.setError(getString(R.string.errorNombre));
+            valido = false;
+        } else {
+            txtNombres.setError(null);
+        }
+        if( apellidos.trim().isEmpty() ){
+            txtApellidos.setError(getString(R.string.errorApellidos));
+            valido = false;
+        } else {
+            txtApellidos.setError(null);
+        }
+        if( ciudad.trim().isEmpty() ){
+            txtCiudad.setError(getString(R.string.errorCiudad));
+            valido = false;
+        } else {
+            txtCiudad.setError(null);
+        }
+        if( direccion.trim().isEmpty() ){
+            txtDireccion.setError(getString(R.string.errorDireccion));
+            valido = false;
+        } else{
+            txtDireccion.setError(null);
+        }
+        if( telefono.toString().trim().isEmpty() || telefono <= 0 ){
+            txtTelefono.setError(getString(R.string.errorTelefono));
+            valido = false;
+        } else {
+            txtTelefono.setError(null);
+        }
+        if( contraseña.trim().isEmpty() ){
+            txtContraseña.setError(getString(R.string.errorContraseña));
+            valido = false;
+        } else {
+            txtContraseña.setError(null);
+        }
+
+        if( confirmarContraseña.toString().trim().isEmpty() ){
+            txtConfirmarContraseña.setError(getString(R.string.errorContraseña));
+            valido = false;
+        } else {
+            txtConfirmarContraseña.setError(null);
+        }
+
+        if( !contraseña.trim().equals(confirmarContraseña.trim()) ){
+            txtConfirmarContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+            txtContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+            valido = false;
+        } else {
+            txtConfirmarContraseña.setError(null);
+            txtContraseña.setError(null);
+        }
+
+        return valido;
+    }
+
+
     /**
      * Metodo para registrar usuarios.
      */
-    private void registerUser(){
-        encryptPassword(contraseña);
-
-        User user = new User();
-        user.setName(nombres);
-        user.setLastname(apellidos);
-        user.setPhone(telefono);
-        user.setCity(ciudad);
-        user.setAddress(direccion);
-        user.setEmail(email);
-        user.setPassword(contraseña);
+    private void registerUser(User user){
 
         db.collection("users").add(user)
                 .addOnSuccessListener(new OnSuccessListener() {
@@ -134,9 +222,14 @@ public class RegistrarDatosActivity extends AppCompatActivity {
     }
 
     private String encryptPassword(String contraseña){
-        String contraseñaEncriptada = contraseña;
-
-
-        return contraseñaEncriptada;
+        String passEncrypt = contraseña;
+        try{
+            passEncrypt = Utilidades.SHA1(contraseña);
+        }catch (NoSuchAlgorithmException ex){
+            Log.d(TAG, "encryptPassword: "+ ex.getMessage());
+        } catch (UnsupportedEncodingException ex){
+            Log.d(TAG, "encryptPassword: "+ ex.getMessage());
+        }
+        return passEncrypt;
     }
 }

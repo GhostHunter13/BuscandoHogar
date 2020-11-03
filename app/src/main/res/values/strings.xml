@@ -19,5 +19,16 @@
         <item>Gato</item>
         <item>Otro</item>
     </array>
+    
+    <!-- Errores -->
+    <string name="errorNombre">Por favor, coloque un Nombre valido</string>
+    <string name="errorApellidos">Por favor, coloque un Apellido valido</string>
+    <string name="errorCiudad">Por favor, coloque una Ciudad valida</string>
+    <string name="errorEmail">Por favor, coloque un Email valido</string>
+    <string name="errorTelefono">Por favor, coloque un Telefono valido</string>
+    <string name="errorContraseña">Por favor, coloque una Contraseña valida</string>
+    <string name="errorDireccion">Por favor, coloque una Direccion valida</string>
+    <string name="errorContraseñasNoCoinciden">Las contraseñas no coinciden</string>
+    <string name="errorEmailExiste">Esta direccion de correo ya se ha registrado anteriormente.</string>
 
 </resources>
