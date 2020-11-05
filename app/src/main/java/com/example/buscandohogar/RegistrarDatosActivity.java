@@ -185,15 +185,16 @@ public class RegistrarDatosActivity extends AppCompatActivity {
             txtConfirmarContraseña.setError(null);
         }
 
-        if( !contraseña.trim().equals(confirmarContraseña.trim()) ){
-            txtConfirmarContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
-            txtContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
-            valido = false;
-        } else {
-            txtConfirmarContraseña.setError(null);
-            txtContraseña.setError(null);
+        if( !contraseña.trim().isEmpty() && !confirmarContraseña.trim().isEmpty() ){
+            if( !contraseña.equals(confirmarContraseña) ){
+                txtConfirmarContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+                txtContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+                valido = false;
+            } else {
+                txtConfirmarContraseña.setError(null);
+                txtContraseña.setError(null);
+            }
         }
-
         return valido;
     }
 
