@@ -1,5 +1,6 @@
 package com.example.buscandohogar.view.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import com.example.buscandohogar.view.adapter.AnimalAdapter;
 import com.example.buscandohogar.model.entity.Animal;
 import com.google.android.material.tabs.TabLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,7 +37,7 @@ public class AnimalesFragment extends Fragment {
     private static final int TAB_GATOS = 1;
 
     private View v;
-    private List<Animal> animalsList;
+    private ArrayList<Animal> animalsList;
     private HashMap<User, Animal> listaMascotasAnimales;
     private User dueñoMascota;
     private AnimalAdapter adapterAnimals;
@@ -61,6 +63,10 @@ public class AnimalesFragment extends Fragment {
     }
 
     public void setDatos(){
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setIcon(R.mipmap.ic_launcher_round);
+        progressDialog.setMessage("Cargando mascotas...");
+        progressDialog.show();
         animalsList = new ArrayList<>();
         listaMascotasAnimales = new HashMap<>();
         mascotaRepositorios = new MascotaRepositorios(getContext());
@@ -69,18 +75,17 @@ public class AnimalesFragment extends Fragment {
         ArrayList<Animal> listaPerros = new ArrayList<>();
 
 
-        mascotaRepositorios.obtenerMascotasMap(new AppCallback<HashMap<User, Animal>>() {
+        mascotaRepositorios.obtenerMascotas(new AppCallback<ArrayList<Animal>>() {
             @Override
-            public void correcto(HashMap<User, Animal> respuesta) {
-                for( Map.Entry<User, Animal> entry : respuesta.entrySet() ){
-                    Animal mascota = entry.getValue();
+            public void correcto(ArrayList<Animal> respuesta) {
+                for( Animal mascota : respuesta ){
                     if( mascota.getTipo().equals(getString(R.string.perro)) ){
                         listaPerros.add(mascota);
                     } else {
                         listaGatos.add(mascota);
                     }
                 }
-                adapterAnimals = new AnimalAdapter(animalsList);
+                adapterAnimals = new AnimalAdapter(listaPerros);
                 tablLayout = new TabLayout(getContext());
 
                 rvAnimales = v.findViewById(R.id.rvAnimales);
@@ -89,9 +94,11 @@ public class AnimalesFragment extends Fragment {
                 llmAnimales = new LinearLayoutManager(getContext());
                 rvAnimales.setLayoutManager(llmAnimales);
                 rvAnimales.setAdapter(adapterAnimals);
+                progressDialog.dismiss();
             }
             @Override
             public void error(Exception exception) {
+                progressDialog.dismiss();
                 Toast.makeText(getContext(), "Error al traer la lista de mascotas "+ exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -99,15 +106,15 @@ public class AnimalesFragment extends Fragment {
         tablLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                List<Animal> newList = new ArrayList<>();
-                Log.d(TAB_LAYOUT, "onTabSelected: "+ tab.getPosition());
+                progressDialog.show();
                 animalsList.clear();
                 if( TAB_PERROS == tab.getPosition() ){
                     animalsList.addAll(listaPerros);
                 } else if ( TAB_GATOS == tab.getPosition() ){
                     animalsList.addAll(listaGatos);
                 }
-                actualizarLista();
+                actualizarLista(animalsList);
+                progressDialog.dismiss();
             }
 
             @Override
@@ -123,18 +130,8 @@ public class AnimalesFragment extends Fragment {
 
     }
 
-    private void actualizarLista(){
-        mascotaRepositorios.obtenerMascotas(new AppCallback<ArrayList<Animal>>() {
-            @Override
-            public void correcto(ArrayList<Animal> respuesta) {
-                adapterAnimals.setListaMascotas(respuesta);
-            }
-
-            @Override
-            public void error(Exception exception) {
-                Log.d("ListadoProductos", "error: "+ exception.toString());
-            }
-        });
+    private void actualizarLista(ArrayList<Animal> listaMascotas){
+        adapterAnimals.setListaMascotas(listaMascotas);
     }
 
 }

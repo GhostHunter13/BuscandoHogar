@@ -58,6 +58,9 @@
     <string name="registrar_mascota">Registrar Mascota</string>
     <string name="perro">Perro</string>
     <string name="gato">Gato</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="no_tienes_mascotas_registradas_aun">No tienes mascotas registradas aún.</string>
 
 
     <string-array name="departamentos">

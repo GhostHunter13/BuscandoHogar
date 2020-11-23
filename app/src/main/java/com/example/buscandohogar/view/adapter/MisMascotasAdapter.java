@@ -28,46 +28,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder> {
+public class MisMascotasAdapter extends RecyclerView.Adapter<MisMascotasAdapter.MisMascotasViewHolder> {
 
-    private static final String CHECK_BTN = "BotonFavorite";
-    private static final String TAG = "AnimalAdapter";
+    private List<Animal> animals;
+
+    private static final String TAG = "MisMascotasAdapter";
     private Animal mascota;
-    private ArrayList<Animal> listaMascotas;
+    private ArrayList<Animal> listaMisMascotas;
     private OnItemClickListener onItemClickListener;
 
-    public void setListaMascotas(ArrayList<Animal> listaMascotas){
-        this.listaMascotas = listaMascotas;
+    public void setListaMisMascotas(ArrayList<Animal> listaMascotas){
+        this.listaMisMascotas = listaMascotas;
         notifyDataSetChanged();
     }
 
-    public AnimalAdapter(ArrayList<Animal> listaMascotas){
-        this.listaMascotas = listaMascotas;
+    public MisMascotasAdapter(ArrayList<Animal> listaMascotas){
+        this.listaMisMascotas = listaMascotas;
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
 
-    class AnimalViewHolder extends RecyclerView.ViewHolder{
+    class MisMascotasViewHolder extends RecyclerView.ViewHolder{
 
         //Cardview correspondiente al animal
-        private ImageView ivPerfilAddMascota, ivMascota;
-        private TextView tvPerfilAddMascota, tvPerfilAddLocacion, tvMascotaName,
-                        tvMascotaRaza, tvMascotaEdad, tvMascotaDescripcion;
-        private Button btnConoceme;
+        private ImageView ivMascota;
+        private TextView tvMascotaName,
+                tvMascotaRaza, tvMascotaEdad, tvMascotaDescripcion;
+        private Button btnEditar, btnEliminar;
 
-        public AnimalViewHolder(@NonNull View itemView) {
+        public MisMascotasViewHolder(@NonNull View itemView) {
             super(itemView);
-            ivPerfilAddMascota = itemView.findViewById(R.id.imgProfileAddAnimal);
             ivMascota = itemView.findViewById(R.id.imgAnimal);
-            tvPerfilAddMascota = itemView.findViewById(R.id.txtMainNameText);
-            tvPerfilAddLocacion = itemView.findViewById(R.id.txtMainDescNameText);
             tvMascotaName = itemView.findViewById(R.id.txtName);
             tvMascotaEdad = itemView.findViewById(R.id.txtAge);
             tvMascotaRaza = itemView.findViewById(R.id.txtBreed);
             tvMascotaDescripcion = itemView.findViewById(R.id.txtDescription);
-            btnConoceme = itemView.findViewById(R.id.btnConoceme);
+            btnEditar = itemView.findViewById(R.id.btnEditar);
+            btnEliminar = itemView.findViewById(R.id.btnEliminar);
 
         }
 
@@ -82,46 +81,51 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             tvMascotaDescripcion.setText(animal.getDescripcion());
 
             if( onItemClickListener != null ){
-                ivPerfilAddMascota.setOnClickListener(new View.OnClickListener() {
+                btnEditar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onItemClickListener.onItemClickImagen(animal, getAdapterPosition());
+                        onItemClickListener.onItemClickEditarMascota(animal, getAdapterPosition());
                     }
                 });
 
-                btnConoceme.setOnClickListener(new View.OnClickListener() {
+                btnEliminar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        onItemClickListener.onItemClickConoceme(animal, getAdapterPosition());
+                        onItemClickListener.onItemClickEliminarMascota(animal, getAdapterPosition());
                     }
                 });
+
             }
         }
     }
 
+    //Constructor with animals
+    public MisMascotasAdapter(List<Animal> animals) {
+        this.animals = animals;
+    }
+
     @NonNull
     @Override
-    public AnimalAdapter.AnimalViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_animal, parent, false);
-        return new AnimalViewHolder(view);
+    public MisMascotasAdapter.MisMascotasViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_mis_mascotas, parent, false);
+        return new MisMascotasViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AnimalAdapter.AnimalViewHolder holder, int position) {
-        Animal animal = listaMascotas.get(position);
-
+    public void onBindViewHolder(@NonNull MisMascotasAdapter.MisMascotasViewHolder holder, int position) {
+        Animal animal = listaMisMascotas.get(position);
         holder.cargarDatos(animal);
     }
 
     @Override
     public int getItemCount() {
-        return listaMascotas.size();
+        return listaMisMascotas.size();
     }
 
     public interface OnItemClickListener{
 
-        void onItemClickConoceme(Animal producto, int posicion);
-        void onItemClickImagen(Animal producto, int posicion);
+        void onItemClickEditarMascota(Animal producto, int posicion);
+        void onItemClickEliminarMascota(Animal producto, int posicion);
 
     }
 

@@ -11,22 +11,22 @@
         android:id="@+id/favoriteIcon"
         android:icon="@drawable/favorite_new"
         android:enabled="true"
-        android:title="Favoritos"
-        android:contentDescription="Animales seleccionados como favoritos"/>
+        android:title="Mis Mascotas"
+        android:contentDescription="Mascotas agregadas a la app"/>
 
     <item
         android:id="@+id/addIcon"
         android:icon="@drawable/add_new"
         android:enabled="true"
         android:title="Adopción"
-        android:contentDescription="Profile"/>
+        android:contentDescription="Añadir mascota en adopcion"/>
 
     <item
         android:id="@+id/aboutusIcon"
-        android:icon="@drawable/aboutus_new"
+        android:icon="@drawable/ic_new_solicitud"
         android:enabled="true"
-        android:title="Acerca de"
-        android:contentDescription="Acerca de"/>
+        android:title="Solicitud"
+        android:contentDescription="Solicitudes"/>
 
     <item
         android:id="@+id/profileIcon"

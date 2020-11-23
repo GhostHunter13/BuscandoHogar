@@ -108,15 +108,32 @@ public class MascotaRepositorios {
         }
     }
 
-    public void obtenerMascotaById(String idUser, final AppCallback<User> response){
+    public void obtenerMascotasPorDueño(final AppCallback<ArrayList<Animal>> response){
+        mFirestore.collection(MASCOTA_COLLECTION).whereEqualTo("idDueño", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if( task.isSuccessful() ){
+                    Log.d(TAG, "onComplete: traigo "+ task.getResult().getDocuments());
+                    ArrayList<Animal> mascotas = new ArrayList<>();
+                    for(DocumentSnapshot item : task.getResult().getDocuments()){
+                        Animal mascota = item.toObject(Animal.class);
+                        mascotas.add(mascota);
+                    }
+                    response.correcto(mascotas);
+                }
+            }
+        });
+    }
 
-        mFirestore.collection(MASCOTA_COLLECTION).document(idUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    public void obtenerMascotaById(String idMascota, final AppCallback<Animal> response){
+
+        mFirestore.collection(MASCOTA_COLLECTION).document(idMascota).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if( task.isSuccessful() ){
-                    User user = task.getResult().toObject(User.class);
-                    user.setId(task.getResult().getId());
-                    response.correcto(user);
+                    Animal animal = task.getResult().toObject(Animal.class);
+                    animal.setId(task.getResult().getId());
+                    response.correcto(animal);
                 } else {
                     response.error(task.getException());
                 }

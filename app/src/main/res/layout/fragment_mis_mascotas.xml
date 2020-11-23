@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragments.FavoritesFragment">
+    tools:context=".view.fragments.MisMascotasFragment">
 
     <LinearLayout
-        android:id="@+id/llNoFavorites"
+        android:id="@+id/llNoMascotas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -14,7 +14,7 @@
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/ivNoFavorites"
+            android:id="@+id/ivNoMascotas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/perro_lista_vacia"
@@ -26,11 +26,11 @@
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:textSize="18sp"
-            android:text="Tu lista de favoritos está vacía."/>
+            android:text="@string/no_tienes_mascotas_registradas_aun"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAnimalesFavorites"
+        android:id="@+id/rvMisMascotas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

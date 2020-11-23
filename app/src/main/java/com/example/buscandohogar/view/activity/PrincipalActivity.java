@@ -18,7 +18,7 @@ import com.example.buscandohogar.view.fragments.AboutusFragment;
 import com.example.buscandohogar.view.fragments.AdoptameFragment;
 import com.example.buscandohogar.view.fragments.AdoptionFragment;
 import com.example.buscandohogar.view.fragments.AnimalesFragment;
-import com.example.buscandohogar.view.fragments.FavoritesFragment;
+import com.example.buscandohogar.view.fragments.MisMascotasFragment;
 import com.example.buscandohogar.view.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,7 +31,7 @@ public class PrincipalActivity extends AppCompatActivity {
     private AdoptameFragment adoptameFragment;
     private AdoptionFragment adoptionFragment;
     private AnimalesFragment animalesFragment;
-    private FavoritesFragment favoritesFragment;
+    private MisMascotasFragment misMascotasFragment;
     private ProfileFragment profileFragment;
 
     @Override
@@ -52,7 +52,7 @@ public class PrincipalActivity extends AppCompatActivity {
         adoptameFragment = new AdoptameFragment();
         adoptionFragment = new AdoptionFragment();
         animalesFragment = new AnimalesFragment();
-        favoritesFragment = new FavoritesFragment();
+        misMascotasFragment = new MisMascotasFragment();
         profileFragment = new ProfileFragment();
         setFragment(new AnimalesFragment());
 
@@ -65,7 +65,7 @@ public class PrincipalActivity extends AppCompatActivity {
                         setFragment(animalesFragment);
                         return true;
                     case R.id.favoriteIcon:
-                        setFragment(favoritesFragment);
+                        setFragment(misMascotasFragment);
                         return true;
                     case R.id.addIcon:
                         setFragment(adoptionFragment);
