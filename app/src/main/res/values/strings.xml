@@ -14,21 +14,86 @@
     <string name="fb_login_protocol_scheme">fb387788009022778</string>
 
     <array name="typesAnimals">
-        <item>Seleccione</item>
-        <item>Perro</item>
-        <item>Gato</item>
-        <item>Otro</item>
+        <item>@string/perro</item>
+        <item>@string/gato</item>
     </array>
     
     <!-- Errores -->
     <string name="errorNombre">Por favor, coloque un Nombre valido</string>
     <string name="errorApellidos">Por favor, coloque un Apellido valido</string>
-    <string name="errorCiudad">Por favor, coloque una Ciudad valida</string>
+    <string name="errorMunicipio">Por favor, coloque un Municipio valido</string>
+    <string name="errorDepartamento">Por favor, coloque un Departamento valido</string>
     <string name="errorEmail">Por favor, coloque un Email valido</string>
     <string name="errorTelefono">Por favor, coloque un Telefono valido</string>
     <string name="errorContraseña">Por favor, coloque una Contraseña valida</string>
     <string name="errorDireccion">Por favor, coloque una Direccion valida</string>
     <string name="errorContraseñasNoCoinciden">Las contraseñas no coinciden</string>
     <string name="errorEmailExiste">Esta direccion de correo ya se ha registrado anteriormente.</string>
+    <string name="ingresar_email">e-mail</string>
+    <string name="registrar_usuario">Registrar Usuario</string>
+    <string name="boton_atras">Atras</string>
+    <string name="error_pass_weak">La contraseña debe ser mayor a 6 letras o digitos.</string>
+
+    <string name="errorNombreMascota">Por favor, coloque un Nombre valido</string>
+    <string name="errorTipoMascota">Por favor, seleccione un Tipo de mascota</string>
+    <string name="errorRaza">Por favor, la Raza de su mascota</string>
+    <string name="errorEdad">Por favor, digite la Edad de su mascota</string>
+    <string name="errorDescripcionMascota">Por favor, coloque una descripcion valida</string>
+
+    <string name="colocar_email">Por favor, coloque su email</string>
+    <string name="colocar_contraseña">Por favor, coloque su contraseña</string>
+    <string name="registro_de_usuario">Registro de Usuario</string>
+    <string name="e_mail">E-mail</string>
+    <string name="nombres">Nombres</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="telefono">Telefono</string>
+    <string name="departamento">Departamento</string>
+    <string name="municipio">Municipio</string>
+    <string name="direccion">Direccion</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="confirmar_contrasena">Confirmar Contraseña</string>
+    <string name="nombre_de_la_mascota">Nombre de la mascota</string>
+    <string name="tipo_de_mascota">Tipo de Mascota</string>
+    <string name="raza">Raza</string>
+    <string name="registrar_mascota">Registrar Mascota</string>
+    <string name="perro">Perro</string>
+    <string name="gato">Gato</string>
+
+
+    <string-array name="departamentos">
+        <item>Amazonas</item>
+        <item>Antioquia</item>
+        <item>Arauca</item>
+        <item>Atlántico</item>
+        <item>Bogotá</item>
+        <item>Bolívar</item>
+        <item>Boyacá</item>
+        <item>Caldas</item>
+        <item>Caquetá</item>
+        <item>Casanare</item>
+        <item>Cauca</item>
+        <item>Cesar</item>
+        <item>Chocó</item>
+        <item>Córdoba</item>
+        <item>Cundinamarca</item>
+        <item>Guainía</item>
+        <item>Guaviare</item>
+        <item>Huila</item>
+        <item>La Guajira</item>
+        <item>Magdalena</item>
+        <item>Meta</item>
+        <item>Nariño</item>
+        <item>Norte de Santander</item>
+        <item>Putumayo</item>
+        <item>Quindío</item>
+        <item>Risaralda</item>
+        <item>San Andrés y Providencia</item>
+        <item>Santander</item>
+        <item>Sucre</item>
+        <item>Tolima</item>
+        <item>Valle del Cauca</item>
+        <item>Vaupés</item>
+        <item>Vichada</item>
+    </string-array>
 
 </resources>

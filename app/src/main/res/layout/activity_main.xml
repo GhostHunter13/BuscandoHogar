@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".view.activity.MainActivity">
 
     <!--  Para el Icono y el nombre  -->
     <com.google.android.material.appbar.MaterialToolbar
@@ -29,151 +29,145 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <LinearLayout
+    <ScrollView>
+
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imgcircular"
-                android:layout_width="281dp"
-                android:layout_height="197dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginBottom="20dp"
-                android:contentDescription="Logo Buscando Un Hogar"
-                android:scaleType="fitCenter"
-                android:src="@drawable/logo_buscando_hogar" />
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgcircular"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="Logo Buscando Un Hogar"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/logo_buscando_hogar" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            </LinearLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtEmail"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="8dp"
-                android:hint="email"
-                app:endIconMode="clear_text"
-                app:layout_constraintBottom_toTopOf="@+id/txtContraseña"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:startIconDrawable="@drawable/arroba_24"
-                tools:ignore="MissingConstraints">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteemail"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtEmail"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:labelFor="@+id/txtEmail"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="77dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="email"
+                    app:endIconMode="clear_text"
+                    app:startIconDrawable="@drawable/arroba_24">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtContraseña"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="contraseña"
-                app:endIconMode="password_toggle"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtEmail"
-                app:startIconDrawable="@drawable/password_24">
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:labelFor="@+id/txtEmail"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompletecontra"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txtContraseña"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:labelFor="@+id/txtContraseña"
-                    tools:layout_editor_absoluteX="2dp"
-                    tools:layout_editor_absoluteY="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="contraseña"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/password_24">
 
-        </LinearLayout>
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:labelFor="@+id/txtContraseña" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Ingresar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".1" />
-
-            <Button
-                android:id="@+id/btnRegistrarse"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="registrarse"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/google_signIn"
-                    android:background="#3B5998"
-                    android:layout_width="match_parent"
+                    android:id="@+id/btnLogin"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="Inicia con Gmail"
-                    android:textColor="#ffffff" />
+                    android:layout_weight="1"
+                    android:text="Ingresar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1" />
 
                 <Button
-                    android:id="@+id/facebookLogin"
-                    android:background="#3B5998"
-                    android:layout_width="match_parent"
+                    android:id="@+id/btnRegistrarse"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="false"
-                    android:text="Inicia con Facebook"
-                    android:textColor="#ffffff"/>
+                    android:layout_weight="1"
+                    android:text="registrarse"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                    <Button
+                        android:id="@+id/google_signIn"
+                        android:background="#3B5998"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="false"
+                        android:text="Inicia con Gmail"
+                        android:textColor="#ffffff" />
+
+                    <Button
+                        android:id="@+id/facebookLogin"
+                        android:background="#3B5998"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="false"
+                        android:text="Inicia con Facebook"
+                        android:textColor="#ffffff"/>
+
+            </LinearLayout>
 
     </LinearLayout>
+
+    </ScrollView>
 
 </TableLayout>
 

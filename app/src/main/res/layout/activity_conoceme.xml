@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.AdoptameFragment">
+    tools:context=".view.fragments.AdoptameFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,26 +13,6 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="55dp">
-
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/idImagesCarousel"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="@color/gray"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/rotweiler" />
-        </com.synnapps.carouselview.CarouselView>
 
         <TextView
             android:id="@+id/txtNombre"

@@ -1,129 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.AdoptionFragment">
+    tools:context=".view.fragments.AdoptionFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorWhite"
-        android:orientation="vertical"
-        android:weightSum="3">
+        android:layout_height="match_parent">
 
-        <!--  Layout con imagen   -->
-
-        <LinearLayout
+        <!--  Titulo del Formulario   -->
+        <TextView
+            android:id="@+id/tvTituloFormulario"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blackTextColor"
+            android:text="Registro Información de la Mascota"
+            android:fontFamily="@font/simplicity"
+            android:textSize="30sp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:id="@+id/txtName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/whiteTextColor"
-                android:text="Registro Información del Animal"
-                android:fontFamily="@font/simplicity"
-                android:textSize="30sp" />
 
-        </LinearLayout>
-
-        <!-- Informacion del Animal  -->
+            <!-- Informacion De la Mascota  -->
 
         <LinearLayout
+            android:id="@+id/layoutInfoMascota"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="35dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloFormulario">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/txtAnimalName"
+                android:id="@+id/etNombreMascota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:hint="@string/nombre_de_la_mascota"
                 android:textColorHint="@color/colorPrimary"
-                android:hint="Nombre"
                 app:startIconDrawable="@drawable/profile">
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:background="@drawable/border"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:id="@+id/etTipoMascota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical|center_horizontal"
-                android:orientation="horizontal">
+                android:hint="@string/tipo_de_mascota"
+                app:errorEnabled="true"
+                android:textColorHint="@color/colorPrimary"
+                app:startIconDrawable="@drawable/signo">
 
-                <RadioGroup
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                <AutoCompleteTextView
+                    android:id="@+id/dropdownTipoMascota"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorWhite"
+                    android:inputType="text" />
 
-                    <RadioButton
-                        android:id="@+id/radioDog"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Perro"/>
-
-                    <RadioButton
-                        android:id="@+id/radioCat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Gato"/>
-
-                    <RadioButton
-                        android:id="@+id/radioOther"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Otro"/>
-
-                </RadioGroup>
-
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etRaza"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/txtAnimalBreed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:hint="@string/raza"
                 android:textColorHint="@color/colorPrimary"
-                android:hint="Raza"
                 app:startIconDrawable="@drawable/pata_register">
 
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etEdad"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/txtAnimalAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:textColorHint="@color/colorPrimary"
                 android:hint="Edad"
+                android:textColorHint="@color/colorPrimary"
                 app:counterMaxLength="2"
                 app:startIconDrawable="@drawable/add">
 
@@ -135,13 +110,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etDescripcion"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/txtAnimalDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:textColorHint="@color/colorPrimary"
                 android:hint="Descripción"
+                android:textColorHint="@color/colorPrimary"
                 app:startIconDrawable="@drawable/corazon_favorite">
 
                 <AutoCompleteTextView
@@ -151,8 +126,47 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
+            <ImageView
+                android:id="@+id/ivFoto"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/blank_image_template" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/ibCamara"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="tomarFoto"
+                    android:src="@mipmap/ic_camara_nueva" />
+
+                <ImageButton
+                    android:id="@+id/ibCarrete"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:onClick="buscarGaleria"
+                    android:src="@mipmap/ic_carrete_nuevo" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegistrarMascota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="registrarMascota"
+                android:text="@string/registrar_mascota" />
+
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</ScrollView>

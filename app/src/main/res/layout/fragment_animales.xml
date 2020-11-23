@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="5dp"
-    tools:context=".fragments.AnimalesFragment">
+    tools:context=".view.fragments.AnimalesFragment">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
