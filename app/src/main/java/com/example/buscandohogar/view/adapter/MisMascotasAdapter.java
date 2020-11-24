@@ -124,8 +124,8 @@ public class MisMascotasAdapter extends RecyclerView.Adapter<MisMascotasAdapter.
 
     public interface OnItemClickListener{
 
-        void onItemClickEditarMascota(Animal producto, int posicion);
-        void onItemClickEliminarMascota(Animal producto, int posicion);
+        void onItemClickEditarMascota(Animal animal, int posicion);
+        void onItemClickEliminarMascota(Animal animal, int posicion);
 
     }
 

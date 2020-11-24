@@ -31,7 +31,7 @@
                     android:id="@+id/imgAnimal"
                     android:layout_margin="5dp"
                     android:layout_width="match_parent"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitCenter"
                     android:layout_height="194dp"
                     android:contentDescription="Foto Animal"
                     android:src="@drawable/rotweillermodelo"/>

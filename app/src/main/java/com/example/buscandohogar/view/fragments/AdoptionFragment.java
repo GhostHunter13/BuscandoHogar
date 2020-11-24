@@ -19,6 +19,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -42,6 +43,7 @@ public class AdoptionFragment extends Fragment {
 
     public static final int CODIGO_TOMAR_FOTO = 124;
     public static final int CODIGO_CARRETE = 125;
+    public static final int VALOR_INVALIDO = -1;
 
     private View v;
     private MascotaRepositorios mascotaRepositorio;
@@ -50,6 +52,7 @@ public class AdoptionFragment extends Fragment {
     private AutoCompleteTextView dropdwonTipoMascota;
     private ImageButton ibCamara, ibCarrete;
     private Button btnRegistrarMascota;
+    private TextView tvErrorImagen;
     private Uri uriAnimal;
 
     private String nombre, tipo, raza, descripcion, idDueño;
@@ -72,6 +75,7 @@ public class AdoptionFragment extends Fragment {
     }
 
     private void setDatos() {
+        tvErrorImagen = v.findViewById(R.id.tvErrorImagen);
         etNombreMascota = v.findViewById(R.id.etNombreMascota);
         etTipoMascota = v.findViewById(R.id.etTipoMascota);
         etRaza = v.findViewById(R.id.etRaza);
@@ -112,7 +116,7 @@ public class AdoptionFragment extends Fragment {
         nombre = etNombreMascota.getEditText().getText().toString();
         tipo = etTipoMascota.getEditText().getText().toString();
         raza = etRaza.getEditText().getText().toString();
-        edad = etEdad.getEditText().getText().toString().isEmpty() ? null : Integer.parseInt(etEdad.getEditText().getText().toString());
+        edad = etEdad.getEditText().getText().toString().isEmpty() ? VALOR_INVALIDO : Integer.parseInt(etEdad.getEditText().getText().toString());
         descripcion = etDescripcionMascota.getEditText().getText().toString();
 
         final Animal mascota = new Animal(nombre, tipo, raza, edad, descripcion, "", "");
@@ -129,6 +133,7 @@ public class AdoptionFragment extends Fragment {
                         @Override
                         public void correcto(String respuesta) {
                             mascota.setId(respuesta);
+                            limpiarDatosFormulario();
                             progressDialog.dismiss();
                             Snackbar.make(getView(), "Se ha guardado la información de la mascota exitosamente.", Snackbar.LENGTH_LONG).show();
                         }
@@ -148,6 +153,24 @@ public class AdoptionFragment extends Fragment {
         } else {
             progressDialog.dismiss();
         }
+    }
+
+    private void limpiarDatosFormulario(){
+        etNombreMascota.getEditText().setText(null);
+        etTipoMascota.getEditText().setText(null);
+        etRaza.getEditText().setText(null);
+        etEdad.getEditText().setText(null);
+        etDescripcionMascota.getEditText().setText(null);
+        uriAnimal = null;
+        dropdwonTipoMascota.setText(getString(R.string.perro));
+
+        Glide.with(getContext())
+                .load(R.drawable.blank_image_template)
+                .into(ivFoto);
+
+        etNombreMascota.requestFocus();
+        tvErrorImagen.setVisibility(View.INVISIBLE);
+
     }
 
     private boolean validarDatos() {
@@ -186,6 +209,13 @@ public class AdoptionFragment extends Fragment {
             validar = false;
         } else {
             etDescripcionMascota.setError(null);
+        }
+
+        if ( uriAnimal == null ){
+            tvErrorImagen.setVisibility(View.VISIBLE);
+            validar = false;
+        } else {
+            tvErrorImagen.setVisibility(View.INVISIBLE);
         }
 
         return validar;

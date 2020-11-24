@@ -2,10 +2,11 @@ package com.example.buscandohogar.model.entity;
 
 import com.example.buscandohogar.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements Serializable {
 
     private String nombre;
     private String tipo;
@@ -15,7 +16,7 @@ public class Animal {
     private String urlImagen;
     private String id;
     private String idDueño;
-
+    //Se crean estos campos mientras se busca como traer la info solo con el
 
     //Default constructor
     public Animal(){

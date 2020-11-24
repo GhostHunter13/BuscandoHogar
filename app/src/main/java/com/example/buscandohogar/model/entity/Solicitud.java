@@ -1,17 +1,19 @@
 package com.example.buscandohogar.model.entity;
 
-public class Solicitud {
+import java.io.Serializable;
 
-    private int id;
-    private int idUsuarioSolicitante;
-    private int idUsuarioPropietario;
-    private int idAnimal;
-    private Character estado;
+public class Solicitud implements Serializable {
+
+    private String id;
+    private String idUsuarioSolicitante;
+    private String idUsuarioPropietario;
+    private String idAnimal;
+    private String estado;
 
     public Solicitud() {
     }
 
-    public Solicitud(int id, int idUsuarioSolicitante, int idUsuarioPropietario, int idAnimal, Character estado) {
+    public Solicitud(String id, String idUsuarioSolicitante, String idUsuarioPropietario, String idAnimal, String estado) {
         this.id = id;
         this.idUsuarioSolicitante = idUsuarioSolicitante;
         this.idUsuarioPropietario = idUsuarioPropietario;
@@ -19,43 +21,43 @@ public class Solicitud {
         this.estado = estado;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public int getIdUsuarioSolicitante() {
+    public String getIdUsuarioSolicitante() {
         return idUsuarioSolicitante;
     }
 
-    public void setIdUsuarioSolicitante(int idUsuarioSolicitante) {
+    public void setIdUsuarioSolicitante(String idUsuarioSolicitante) {
         this.idUsuarioSolicitante = idUsuarioSolicitante;
     }
 
-    public int getIdUsuarioPropietario() {
+    public String getIdUsuarioPropietario() {
         return idUsuarioPropietario;
     }
 
-    public void setIdUsuarioPropietario(int idUsuarioPropietario) {
+    public void setIdUsuarioPropietario(String idUsuarioPropietario) {
         this.idUsuarioPropietario = idUsuarioPropietario;
     }
 
-    public int getIdAnimal() {
+    public String getIdAnimal() {
         return idAnimal;
     }
 
-    public void setIdAnimal(int idAnimal) {
+    public void setIdAnimal(String idAnimal) {
         this.idAnimal = idAnimal;
     }
 
-    public Character getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Character estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }

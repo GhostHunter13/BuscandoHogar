@@ -1,32 +1,25 @@
 package com.example.buscandohogar.view.adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.buscandohogar.R;
 import com.example.buscandohogar.model.entity.Animal;
 import com.example.buscandohogar.model.entity.User;
+import com.example.buscandohogar.model.network.AppCallback;
 import com.example.buscandohogar.model.repositories.UsuarioRepositorios;
 
 import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder> {
 
@@ -35,14 +28,16 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
     private Animal mascota;
     private ArrayList<Animal> listaMascotas;
     private OnItemClickListener onItemClickListener;
+    private UsuarioRepositorios usuarioRepositorios;
 
     public void setListaMascotas(ArrayList<Animal> listaMascotas){
         this.listaMascotas = listaMascotas;
         notifyDataSetChanged();
     }
 
-    public AnimalAdapter(ArrayList<Animal> listaMascotas){
+    public AnimalAdapter(ArrayList<Animal> listaMascotas, Context context){
         this.listaMascotas = listaMascotas;
+        this.usuarioRepositorios = new UsuarioRepositorios(context);
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -72,30 +67,47 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         }
 
         public void cargarDatos(final Animal animal){
-            Glide.with(itemView.getContext())
-                    .load(animal.getUrlImagen())
-                    .into(ivMascota);
+            usuarioRepositorios.obtenerById(animal.getIdDueño(), new AppCallback<User>() {
+                @Override
+                public void correcto(User respuesta) {
 
-            tvMascotaName.setText(animal.getNombre());
-            tvMascotaEdad.setText(animal.getEdad()+" año/s");
-            tvMascotaRaza.setText(animal.getRaza());
-            tvMascotaDescripcion.setText(animal.getDescripcion());
+                    Glide.with(itemView.getContext())
+                            .load(animal.getUrlImagen())
+                            .into(ivMascota);
 
-            if( onItemClickListener != null ){
-                ivPerfilAddMascota.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onItemClickListener.onItemClickImagen(animal, getAdapterPosition());
+                    Glide.with(itemView.getContext())
+                            .load(respuesta.getUrlImagen())
+                            .into(ivPerfilAddMascota);
+
+                    tvPerfilAddMascota.setText(respuesta.getName());
+                    tvPerfilAddLocacion.setText(respuesta.getMunicipio()+ ", "+ respuesta.getDepartamento());
+
+                    tvMascotaName.setText(animal.getNombre());
+                    tvMascotaEdad.setText(animal.getEdad()+" año(s)");
+                    tvMascotaRaza.setText(animal.getRaza());
+                    tvMascotaDescripcion.setText(animal.getDescripcion());
+
+                    if( onItemClickListener != null ){
+                        ivPerfilAddMascota.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onItemClickListener.onItemClickImagen(animal, getAdapterPosition());
+                            }
+                        });
+
+                        btnConoceme.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                onItemClickListener.onItemClickConoceme(animal, getAdapterPosition());
+                            }
+                        });
                     }
-                });
+                }
+                @Override
+                public void error(Exception exception) {
 
-                btnConoceme.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        onItemClickListener.onItemClickConoceme(animal, getAdapterPosition());
-                    }
-                });
-            }
+                }
+            });
         }
     }
 
@@ -109,7 +121,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
     @Override
     public void onBindViewHolder(@NonNull AnimalAdapter.AnimalViewHolder holder, int position) {
         Animal animal = listaMascotas.get(position);
-
         holder.cargarDatos(animal);
     }
 
@@ -120,8 +131,8 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
 
     public interface OnItemClickListener{
 
-        void onItemClickConoceme(Animal producto, int posicion);
-        void onItemClickImagen(Animal producto, int posicion);
+        void onItemClickConoceme(Animal mascota, int posicion);
+        void onItemClickImagen(Animal mascota, int posicion);
 
     }
 

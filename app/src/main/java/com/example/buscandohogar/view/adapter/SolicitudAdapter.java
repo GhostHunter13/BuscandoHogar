@@ -1,5 +1,6 @@
 package com.example.buscandohogar.view.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,46 +14,104 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.buscandohogar.R;
 import com.example.buscandohogar.model.entity.Animal;
+import com.example.buscandohogar.model.entity.Solicitud;
+import com.example.buscandohogar.model.entity.User;
+import com.example.buscandohogar.model.network.AppCallback;
+import com.example.buscandohogar.model.repositories.MascotaRepositorios;
+import com.example.buscandohogar.model.repositories.UsuarioRepositorios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.SolicitudViewHolder> {
 
-    private List<Animal> animals;
 
-    private static final String CHECK_BTN = "BotonFavorite";
-    private static final String TAG = "AnimalAdapter";
+    private static final String TAG = "SolicitudAdapter";
+    private Solicitud solicitud;
+    private UsuarioRepositorios usuarioRepositorios;
+    private MascotaRepositorios mascotaRepositorios;
+    private ArrayList<Solicitud> listaSolicitudes;
+    private SolicitudAdapter.OnItemClickListener onItemClickListener;
 
-    public static class SolicitudViewHolder extends RecyclerView.ViewHolder{
+    public void setListaSolicitudes(ArrayList<Solicitud> listaSolicitudes){
+        this.listaSolicitudes = listaSolicitudes;
+        notifyDataSetChanged();
+    }
 
-        //Cardview correspondiente al animal
-        CardView cvSolicitud;
-        TextView name, age, breed, description;
-        ImageView animalPhoto;
-        CheckBox btnFavorite;
-        Button btnEliminar;
+    public SolicitudAdapter(ArrayList<Solicitud> listaSolicitudes, Context context){
+        this.listaSolicitudes = listaSolicitudes;
+        this.mascotaRepositorios = new MascotaRepositorios(context);
+        this.usuarioRepositorios = new UsuarioRepositorios(context);
+    }
+
+    public void setOnItemClickListener(SolicitudAdapter.OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    class SolicitudViewHolder extends RecyclerView.ViewHolder{
+
+        private ImageView ivProfileAddMascota;
+        private TextView tvLocacionDueño,
+                tvMensajeSolicitud;
+        private Button btnNegarSolicitud, btnAceptarSolicitud;
 
         public SolicitudViewHolder(@NonNull View itemView) {
             super(itemView);
-            cvSolicitud = itemView.findViewById(R.id.cvSolicitud);
-            btnEliminar = itemView.findViewById(R.id.btnEliminar);
+            ivProfileAddMascota = itemView.findViewById(R.id.ivProfileAddMascota);
+            tvLocacionDueño = itemView.findViewById(R.id.tvLocacionDueño);
+            tvMensajeSolicitud = itemView.findViewById(R.id.tvMensajeSolicitud);
+            btnNegarSolicitud = itemView.findViewById(R.id.btnNegarSolicitud);
+            btnAceptarSolicitud = itemView.findViewById(R.id.btnAceptarSolicitud);
 
-            btnEliminar.setOnClickListener(new View.OnClickListener() {
+        }
+
+        public void cargarDatos(final Solicitud solicitud){
+            usuarioRepositorios.obtenerById(solicitud.getIdUsuarioSolicitante(), new AppCallback<User>() {
                 @Override
-                public void onClick(View view) {
+                public void correcto(User user) {
+                    mascotaRepositorios.obtenerMascotaById(solicitud.getIdAnimal(), new AppCallback<Animal>() {
+                        @Override
+                        public void correcto(Animal mascota) {
+                            Glide.with(itemView.getContext())
+                                    .load(user.getUrlImagen())
+                                    .into(ivProfileAddMascota);
 
-                    String idText = view.getId()+"";
-                    Log.d(TAG, "onClick: "+ idText);
+                            tvLocacionDueño.setText(user.getMunicipio() + ", " + user.getDepartamento() );
+                            tvMensajeSolicitud.setText(itemView.getContext().getString(R.string.mensaje_solicitud, user.getName(), mascota.getNombre()));
+
+                            if( onItemClickListener != null ){
+                                btnAceptarSolicitud.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        onItemClickListener.onItemClickAceptarSolicitud(solicitud, getAdapterPosition());
+                                    }
+                                });
+
+                                btnNegarSolicitud.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        onItemClickListener.onItemClickNegarSolicitud(solicitud, getAdapterPosition());
+                                    }
+                                });
+
+                            }
+                        }
+                        @Override
+                        public void error(Exception exception) {
+                            Log.d(TAG, "error: "+ exception.getMessage());
+                        }
+                    });
+                }
+
+                @Override
+                public void error(Exception exception) {
+
                 }
             });
         }
-    }
-
-    //Constructor with animals
-    public SolicitudAdapter(List<Animal> animals) {
-        this.animals = animals;
     }
 
     @NonNull
@@ -65,17 +124,25 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
 
     @Override
     public void onBindViewHolder(@NonNull SolicitudAdapter.SolicitudViewHolder holder, int position) {
-
+        Solicitud solicitud = listaSolicitudes.get(position);
+        holder.cargarDatos(solicitud);
     }
 
     @Override
     public int getItemCount() {
-        return animals.size();
+        return listaSolicitudes.size();
     }
 
-    public void updateAnimalsList(List<Animal> newList){
-        animals.clear();
-        animals.addAll(newList);
+    public void updateAnimalsList(List<Solicitud> newList){
+        listaSolicitudes.clear();
+        listaSolicitudes.addAll(newList);
         this.notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener{
+
+        void onItemClickNegarSolicitud(Solicitud solicitud, int posicion);
+        void onItemClickAceptarSolicitud(Solicitud solicitud, int posicion);
+
     }
 }

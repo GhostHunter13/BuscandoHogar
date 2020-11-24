@@ -1,20 +1,26 @@
 package com.example.buscandohogar.view.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.buscandohogar.R;
-import com.example.buscandohogar.view.fragments.AboutusFragment;
+import com.example.buscandohogar.model.entity.Animal;
+import com.example.buscandohogar.view.adapter.AnimalAdapter;
+import com.example.buscandohogar.view.fragments.SolicitudesFragment;
 import com.example.buscandohogar.view.fragments.AdoptameFragment;
 import com.example.buscandohogar.view.fragments.AdoptionFragment;
 import com.example.buscandohogar.view.fragments.AnimalesFragment;
@@ -25,9 +31,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class PrincipalActivity extends AppCompatActivity {
 
     private static final String TAG = "PrincipalAnimal";
+
+
     private BottomNavigationView barNavigation;
     private FrameLayout  fragmentPrincipal;
-    private AboutusFragment aboutusFramgent;
+    private SolicitudesFragment aboutusFramgent;
     private AdoptameFragment adoptameFragment;
     private AdoptionFragment adoptionFragment;
     private AnimalesFragment animalesFragment;
@@ -48,13 +56,14 @@ public class PrincipalActivity extends AppCompatActivity {
     public void setDatos(){
         barNavigation = findViewById(R.id.barNavigation);
         fragmentPrincipal = findViewById(R.id.fragmentPrincipal);
-        aboutusFramgent = new AboutusFragment();
+        aboutusFramgent = new SolicitudesFragment();
         adoptameFragment = new AdoptameFragment();
         adoptionFragment = new AdoptionFragment();
-        animalesFragment = new AnimalesFragment();
+        animalesFragment = new AnimalesFragment(this);
         misMascotasFragment = new MisMascotasFragment();
         profileFragment = new ProfileFragment();
-        setFragment(new AnimalesFragment());
+
+        setFragment(new AnimalesFragment(this));
 
         barNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

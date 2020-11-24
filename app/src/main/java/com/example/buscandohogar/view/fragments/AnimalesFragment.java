@@ -1,6 +1,8 @@
 package com.example.buscandohogar.view.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,6 +21,8 @@ import com.example.buscandohogar.model.entity.User;
 import com.example.buscandohogar.model.network.AppCallback;
 import com.example.buscandohogar.model.repositories.MascotaRepositorios;
 import com.example.buscandohogar.model.repositories.UsuarioRepositorios;
+import com.example.buscandohogar.view.activity.ConocemeActivity;
+import com.example.buscandohogar.view.activity.PrincipalActivity;
 import com.example.buscandohogar.view.adapter.AnimalAdapter;
 import com.example.buscandohogar.model.entity.Animal;
 import com.google.android.material.tabs.TabLayout;
@@ -30,13 +34,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class AnimalesFragment extends Fragment {
+public class AnimalesFragment extends Fragment  implements AnimalAdapter.OnItemClickListener{
 
     private static final String TAB_LAYOUT = "TabLayout";
     private static final int TAB_PERROS = 0;
     private static final int TAB_GATOS = 1;
+    private static final int IR_A_CONOCEME = 834;
 
     private View v;
+    private AnimalAdapter.OnItemClickListener onItemClickListener;
+    private Context context;
     private ArrayList<Animal> animalsList;
     private HashMap<User, Animal> listaMascotasAnimales;
     private User dueñoMascota;
@@ -47,7 +54,8 @@ public class AnimalesFragment extends Fragment {
     private MascotaRepositorios mascotaRepositorios;
     private UsuarioRepositorios usuarioRepositorios;
 
-    public AnimalesFragment() {
+    public AnimalesFragment(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -71,6 +79,7 @@ public class AnimalesFragment extends Fragment {
         listaMascotasAnimales = new HashMap<>();
         mascotaRepositorios = new MascotaRepositorios(getContext());
         tablLayout = v.findViewById(R.id.tabLayout);
+        onItemClickListener = this;
         ArrayList<Animal> listaGatos = new ArrayList<>();
         ArrayList<Animal> listaPerros = new ArrayList<>();
 
@@ -85,8 +94,9 @@ public class AnimalesFragment extends Fragment {
                         listaGatos.add(mascota);
                     }
                 }
-                adapterAnimals = new AnimalAdapter(listaPerros);
-                tablLayout = new TabLayout(getContext());
+                adapterAnimals = new AnimalAdapter(listaPerros, context);
+                adapterAnimals.setOnItemClickListener(onItemClickListener);
+                tablLayout = new TabLayout(context);
 
                 rvAnimales = v.findViewById(R.id.rvAnimales);
                 rvAnimales.setHasFixedSize(true);
@@ -134,4 +144,30 @@ public class AnimalesFragment extends Fragment {
         adapterAnimals.setListaMascotas(listaMascotas);
     }
 
+    @Override
+    public void onItemClickConoceme(Animal mascota, int posicion) {
+        Intent intent = new Intent(getContext(), ConocemeActivity.class);
+        intent.putExtra("mascota", mascota);
+        startActivityForResult(intent, IR_A_CONOCEME);
+    }
+
+    @Override
+    public void onItemClickImagen(Animal mascota, int posicion) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case IR_A_CONOCEME:
+                if( resultCode == 1 )
+                    Toast.makeText(getContext(), "Se ha registrado la solicitud correctamente.", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                break;
+        }
+
+
+    }
 }

@@ -1,7 +1,10 @@
 package com.example.buscandohogar.view.activity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +35,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class
 MainActivity extends AppCompatActivity {
+    private static final String CHANNEL_ID = "BuscandoUnHogarCanalNotificaciones";
     private Button btnLogin, btnRegistrarse, btnFacebookLogin, btnGoogleLogin;
     private ImageView imageViewLogo, imageViewGoogle;
     private TextInputLayout email,contraseña;
@@ -62,6 +66,22 @@ MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setDatos();
         createRequest();
+        crearCanalNotificaciones();
+    }
+
+    private void crearCanalNotificaciones() {
+        // Se crea el canal de notificaciones.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.nombre_canal);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     private void createRequest() {

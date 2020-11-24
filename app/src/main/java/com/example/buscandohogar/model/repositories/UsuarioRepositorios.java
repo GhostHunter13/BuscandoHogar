@@ -62,8 +62,7 @@ public class UsuarioRepositorios {
         this.locacionAPI = retrofit.create(LocacionAPI.class);
     }
 
-    public void obtenerById(final AppCallback<User> response){
-        String idUser = mAuth.getUid();
+    public void obtenerById(String idUser, final AppCallback<User> response){
         mFirestore.collection(USERS_COLLECTION).document(idUser).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

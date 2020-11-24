@@ -70,7 +70,7 @@ public class ProfileFragment extends Fragment {
         logout = v.findViewById(R.id.btnlagout);
         ivProfile = v.findViewById(R.id.ivProfile);
 
-        usuarioRepositorios.obtenerById(new AppCallback<User>() {
+        usuarioRepositorios.obtenerById(mAuth.getUid(), new AppCallback<User>() {
             @Override
             public void correcto(User respuesta) {
                 llenarDatosUsuario(respuesta);

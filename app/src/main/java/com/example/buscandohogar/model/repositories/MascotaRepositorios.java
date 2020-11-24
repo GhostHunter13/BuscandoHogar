@@ -102,12 +102,6 @@ public class MascotaRepositorios {
         });
     }
 
-    public void obtenerDueñosMascotas(ArrayList<Animal> listadoMascotas){
-        for( Animal mascota : listadoMascotas ){
-
-        }
-    }
-
     public void obtenerMascotasPorDueño(final AppCallback<ArrayList<Animal>> response){
         mFirestore.collection(MASCOTA_COLLECTION).whereEqualTo("idDueño", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -127,7 +121,7 @@ public class MascotaRepositorios {
 
     public void obtenerMascotaById(String idMascota, final AppCallback<Animal> response){
 
-        mFirestore.collection(MASCOTA_COLLECTION).document(idMascota).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        mFirestore.collection(MASCOTA_COLLECTION).document("B1uRqjgQM0nPQ337vE2i").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if( task.isSuccessful() ){

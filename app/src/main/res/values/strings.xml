@@ -61,6 +61,19 @@
     <string name="eliminar">Eliminar</string>
     <string name="editar">Editar</string>
     <string name="no_tienes_mascotas_registradas_aun">No tienes mascotas registradas aún.</string>
+    <string name="no_tienes_solicitudes_de_adopcion_aun">No tienes solicitudes de adopción aún.</string>
+    <string name="mensaje_solicitud"> %1$s a realizado una solicitud de adopción por %2$s. Consulta los datos, presionando en el boton aceptar.</string>
+    <string name="negar_solicitud">Negar Solicitud</string>
+    <string name="aceptar_solicitud">Aceptar Solicitud</string>
+    <string name="boton_ir_atras">Atrás</string>
+    <string name="boton_ir_adopcion">Solicitar Adopción</string>
+    <string name="mensaje_advertencia_solicitud">Al momento de presionar el botón "Solicitar Adopcion", se le enviará una solicitud a la persona que registro la mascota en la aplicación, el podrá revisar esa solicitud y se podrá poner en contacto contigo. Gracias por adoptar un animalito que lo necesita!</string>
+    <string name="hola_soy">Hola, soy %1$s!</string>
+    <string name="raza_formulario">Raza: %1$s</string>
+    <string name="edad_formulario">Edad: %1$s año(s)</string>
+    <string name="notificacion_mensaje">Te han enviado una solicitud de adopcion por una mascota que has publicado. Revisala aqui!</string>
+    <string name="nombre_canal">notificaciones_buh</string>
+    <string name="channel_description">Canal de notificaciones para la aplicacion Buscando un Hogar</string>
 
 
     <string-array name="departamentos">
