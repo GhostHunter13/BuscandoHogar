@@ -15,6 +15,11 @@
     <color name="blackTextColor">#000</color>
     <color name="profileEditTextColor">#707070</color>
 
+
+    <color name="success">#4CAF50</color>
+    <color name="fail">#F10227</color>
+    <color name="onproccess">#4393D8</color>
+
     <!-- Colores varios -->
     <color name="gray">#989898</color>
 

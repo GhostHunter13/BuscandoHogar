@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,6 @@ public class SolicitudesFragment extends Fragment implements SolicitudAdapter.On
         solicitudRepositorio.obtenerSolicitudesPorDueño(new AppCallback<ArrayList<Solicitud>>() {
             @Override
             public void correcto(ArrayList<Solicitud> respuesta) {
-
                 adapterSolicitud = new SolicitudAdapter(respuesta, context);
                 adapterSolicitud.setOnItemClickListener(onItemClickListener);
 
@@ -92,11 +92,10 @@ public class SolicitudesFragment extends Fragment implements SolicitudAdapter.On
                 linearNoSolicitudes.setVisibility( respuesta.isEmpty() ? View.VISIBLE : View.GONE );
                 progressDialog.dismiss();
             }
-
             @Override
             public void error(Exception exception) {
                 progressDialog.dismiss();
-                Toast.makeText(getContext(), "Se ha producido un error al traer mis mascotas", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Se ha producido un error al traer solicitudes", Toast.LENGTH_SHORT).show();
             }
         });
 

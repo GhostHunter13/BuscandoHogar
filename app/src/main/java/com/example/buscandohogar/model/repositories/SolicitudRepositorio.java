@@ -92,6 +92,23 @@ public class SolicitudRepositorio {
         });
     }
 
+    public void obtenerSolicitudesRealizadas(final AppCallback<ArrayList<Solicitud>> response){
+        mFirestore.collectionGroup(SOLICITUDES_COLLECTION).whereEqualTo("idUsuarioSolicitante", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if( task.isSuccessful() ){
+                    Log.d(TAG, "onComplete: traigo "+ task.getResult().getDocuments());
+                    ArrayList<Solicitud> listaSolicitudes = new ArrayList<>();
+                    for(DocumentSnapshot item : task.getResult().getDocuments()){
+                        Solicitud solicitud = item.toObject(Solicitud.class);
+                        listaSolicitudes.add(solicitud);
+                    }
+                    response.correcto(listaSolicitudes);
+                }
+            }
+        });
+    }
+
     /**
      * La solicitud se crea como coleccion dentro de un documento que lleva el ID del usuario en sesion.
      * La jerarquia es la siguiente:

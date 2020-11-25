@@ -22,6 +22,7 @@ import com.example.buscandohogar.model.entity.User;
 import com.example.buscandohogar.model.network.AppCallback;
 import com.example.buscandohogar.model.repositories.MascotaRepositorios;
 import com.example.buscandohogar.model.repositories.UsuarioRepositorios;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
     private MascotaRepositorios mascotaRepositorios;
     private ArrayList<Solicitud> listaSolicitudes;
     private OnItemClickListener onItemClickListener;
+    private FirebaseAuth mAuth;
 
     public void setListaSolicitudes(ArrayList<Solicitud> listaSolicitudes){
         this.listaSolicitudes = listaSolicitudes;
@@ -45,6 +47,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
         this.listaSolicitudes = listaSolicitudes;
         this.mascotaRepositorios = new MascotaRepositorios(context);
         this.usuarioRepositorios = new UsuarioRepositorios(context);
+        this.mAuth = FirebaseAuth.getInstance();
     }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -54,7 +57,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
     class SolicitudViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView ivProfileAddMascota;
-        private TextView tvLocacionDueño,
+        private TextView tvLocacionDueño,tvEstadoSolicitud,
                 tvMensajeSolicitud;
         private Button btnNegarSolicitud, btnAceptarSolicitud;
 
@@ -65,6 +68,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
             tvMensajeSolicitud = itemView.findViewById(R.id.tvMensajeSolicitud);
             btnNegarSolicitud = itemView.findViewById(R.id.btnNegarSolicitud);
             btnAceptarSolicitud = itemView.findViewById(R.id.btnAceptarSolicitud);
+            tvEstadoSolicitud = itemView.findViewById(R.id.estadoSolicitud);
 
         }
 
@@ -79,8 +83,8 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
                                     .load(user.getUrlImagen())
                                     .into(ivProfileAddMascota);
 
-                            tvLocacionDueño.setText(user.getMunicipio() + ", " + user.getDepartamento() );
-                            tvMensajeSolicitud.setText(itemView.getContext().getString(R.string.mensaje_solicitud, user.getName(), mascota.getNombre()));
+                                tvLocacionDueño.setText(user.getMunicipio() + ", " + user.getDepartamento() );
+                                tvMensajeSolicitud.setText(itemView.getContext().getString(R.string.mensaje_solicitud, user.getName(), mascota.getNombre()));
 
                             if( onItemClickListener != null ){
                                 btnAceptarSolicitud.setOnClickListener(new View.OnClickListener() {
