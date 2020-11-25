@@ -1,5 +1,6 @@
 package com.example.buscandohogar.view.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -42,7 +43,7 @@ public class MisMascotasAdapter extends RecyclerView.Adapter<MisMascotasAdapter.
         notifyDataSetChanged();
     }
 
-    public MisMascotasAdapter(ArrayList<Animal> listaMascotas){
+    public MisMascotasAdapter(ArrayList<Animal> listaMascotas, Context context){
         this.listaMisMascotas = listaMascotas;
     }
 
@@ -97,11 +98,6 @@ public class MisMascotasAdapter extends RecyclerView.Adapter<MisMascotasAdapter.
 
             }
         }
-    }
-
-    //Constructor with animals
-    public MisMascotasAdapter(List<Animal> animals) {
-        this.animals = animals;
     }
 
     @NonNull

@@ -49,12 +49,15 @@ import static com.example.buscandohogar.view.fragments.AdoptionFragment.CODIGO_T
 
 public class RegistrarDatosActivity extends AppCompatActivity {
 
+    private static final String USUARIO_EDITAR = "usuario";
     private static String TAG = "RegistroDatos";
     private static String USERS_COLLECTION = "users";
     private TextInputLayout txtNombres, txtApellidos, txtTelefono, txtDepartamento, txtMunicipio,
             txtDireccion, txtEmail, txtContraseña, txtConfirmarContraseña;
-    private TextView tvTitleForm;
+    private TextView tvTitleForm, tvErrorImgProfile;
     private Button btnContinuar, btnAtras;
+    private User usuarioEditar;
+    private Uri uriProfileImageEdit;
 
     private String nombres, apellidos, departamento, municipio, direccion, email, contraseña, confirmarContraseña, telefono;
     private AutoCompleteTextView dropdownDepartamento;
@@ -67,6 +70,10 @@ public class RegistrarDatosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_datos);
+        Intent intent = getIntent();
+        if( intent != null )
+            usuarioEditar = (User) intent.getSerializableExtra(USUARIO_EDITAR);
+
         setDatos();
     }
 
@@ -74,6 +81,7 @@ public class RegistrarDatosActivity extends AppCompatActivity {
         usuarioRepositorios = new UsuarioRepositorios(this);
         ivFotoProfile = findViewById(R.id.ivFotoProfile);
         tvTitleForm = findViewById(R.id.tvTitleForm);
+        tvErrorImgProfile = findViewById(R.id.tvErrorImgProfile);
         txtNombres = findViewById(R.id.txtNombres);
         txtApellidos = findViewById(R.id.txtApellidos);
         txtTelefono = findViewById(R.id.txtPhone);
@@ -94,31 +102,41 @@ public class RegistrarDatosActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.departamentos));
         dropdownDepartamento.setAdapter(adapter);
 
+        if( usuarioEditar != null ){
+            setearInfoUsuarioEditar(usuarioEditar);
+        }
+
         btnAtras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setResult(RESULT_CANCELED);
                 finish();
             }
         });
     }
 
     /**
-     * Metodo para validar el formato del email.
-     * @param emailUser
-     * @return
+     * Metodo encargado de setear la informacion en los campos, para actualizar el usuario
+     * @param usuarioEditar
      */
-    @Deprecated
-    private boolean validarEmail(String emailUser){
-        boolean validar = true;
-        Pattern pattern = Patterns.EMAIL_ADDRESS;
-        if( emailUser.trim().isEmpty() ||
-                !pattern.matcher(emailUser).matches() ){
-            txtEmail.setError(getString(R.string.errorEmail));
-            validar = false;
-        } else {
-            txtEmail.setError(null);
-        }
-        return validar;
+    private void setearInfoUsuarioEditar(User usuarioEditar) {
+        txtNombres.getEditText().setText(usuarioEditar.getName());
+        txtApellidos.getEditText().setText(usuarioEditar.getLastname());
+        txtTelefono.getEditText().setText(usuarioEditar.getPhone());
+        txtDepartamento.getEditText().setText(usuarioEditar.getDepartamento());
+        txtMunicipio.getEditText().setText(usuarioEditar.getMunicipio());
+        txtDireccion.getEditText().setText(usuarioEditar.getAddress());
+
+        Glide.with(this)
+                .load(usuarioEditar.getUrlImagen())
+                .into(ivFotoProfile);
+
+        tvTitleForm.setText(getString(R.string.editar_info, "Usuario"));
+        btnContinuar.setText(getString(R.string.modificar_info));
+        txtEmail.setVisibility(View.GONE);
+        txtContraseña.setVisibility(View.GONE);
+        txtConfirmarContraseña.setVisibility(View.GONE);
+
     }
 
     /**
@@ -126,107 +144,186 @@ public class RegistrarDatosActivity extends AppCompatActivity {
      */
     private boolean validarInfoRegistro(){
         boolean valido = true;
-        if( nombres.trim().isEmpty() ){
+        if( txtNombres.getEditText().getText().toString().trim().isEmpty() ){
             txtNombres.setError(getString(R.string.errorNombre));
             valido = false;
         } else {
             txtNombres.setError(null);
         }
-        if( apellidos.trim().isEmpty() ){
+        if( txtApellidos.getEditText().getText().toString().trim().isEmpty() ){
             txtApellidos.setError(getString(R.string.errorApellidos));
             valido = false;
         } else {
             txtApellidos.setError(null);
         }
-        if( municipio.trim().isEmpty() ){
+        if( txtMunicipio.getEditText().getText().toString().trim().isEmpty() ){
             txtMunicipio.setError(getString(R.string.errorMunicipio));
             valido = false;
         } else {
             txtMunicipio.setError(null);
         }
-        if( departamento.trim().isEmpty() ){
+        if( txtDepartamento.getEditText().getText().toString().trim().isEmpty() ){
             txtDepartamento.setError(getString(R.string.errorDepartamento));
             valido = false;
         } else {
             txtDepartamento.setError(null);
         }
-        if( direccion.trim().isEmpty() ){
+        if( txtDireccion.getEditText().getText().toString().trim().isEmpty() ){
             txtDireccion.setError(getString(R.string.errorDireccion));
             valido = false;
         } else{
             txtDireccion.setError(null);
         }
-        if( telefono.trim().isEmpty() ){
+        if( txtTelefono.getEditText().getText().toString().trim().isEmpty() ){
             txtTelefono.setError(getString(R.string.errorTelefono));
             valido = false;
-        } else if ( telefono.trim().length() != 10 ){
-            txtTelefono.setError("El número de telefono debe ser de 10 digitos");
+        } else if ( txtTelefono.getEditText().getText().toString().trim().length() != 10 ){
+            txtTelefono.setError(getString(R.string.mensaje_error_telefono));
             valido = false;
         } else {
             txtTelefono.setError(null);
         }
-        if( contraseña.trim().isEmpty() ){
-            txtContraseña.setError(getString(R.string.errorContraseña));
-            valido = false;
-        } else {
-            txtContraseña.setError(null);
-        }
 
-        if( confirmarContraseña.toString().trim().isEmpty() ){
-            txtConfirmarContraseña.setError(getString(R.string.errorContraseña));
-            valido = false;
-        } else {
-            txtConfirmarContraseña.setError(null);
-        }
+        if( usuarioEditar == null ){
+            if( contraseña.trim().isEmpty() ){
+                txtContraseña.setError(getString(R.string.errorContraseña));
+                valido = false;
+            } else {
+                txtContraseña.setError(null);
+            }
 
-        if( !contraseña.trim().isEmpty() && !confirmarContraseña.trim().isEmpty() ){
-            if( !contraseña.equals(confirmarContraseña) ){
-                txtConfirmarContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
-                txtContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+            if( confirmarContraseña.toString().trim().isEmpty() ){
+                txtConfirmarContraseña.setError(getString(R.string.errorContraseña));
                 valido = false;
             } else {
                 txtConfirmarContraseña.setError(null);
-                txtContraseña.setError(null);
+            }
+
+            if( !contraseña.trim().isEmpty() && !confirmarContraseña.trim().isEmpty() ){
+                if( !contraseña.equals(confirmarContraseña) ){
+                    txtConfirmarContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+                    txtContraseña.setError(getString(R.string.errorContraseñasNoCoinciden));
+                    valido = false;
+                } else {
+                    txtConfirmarContraseña.setError(null);
+                    txtContraseña.setError(null);
+                }
+            }
+            if ( uriProfileImage == null ){
+                tvErrorImgProfile.setVisibility(View.VISIBLE);
+                valido = false;
+            } else {
+                tvErrorImgProfile.setVisibility(View.INVISIBLE);
             }
         }
+
+
         return valido;
     }
 
     /**
-     * Metodo para registrar usuarios.
+     * Metodo encargado de Registrar o Editar la informaicon de un usuario
      */
     public void registerUser(View view){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setIcon(R.mipmap.ic_launcher_round);
         progressDialog.setMessage("Por favor espere...");
+        Log.d(TAG, "registerUser: "+ usuarioEditar );
 
-        nombres = txtNombres.getEditText().getText().toString();
-        apellidos = txtApellidos.getEditText().getText().toString();
-        departamento = txtDepartamento.getEditText().getText().toString();
-        municipio = txtMunicipio.getEditText().getText().toString();
-        direccion = txtDireccion.getEditText().getText().toString();
-        email = txtEmail.getEditText().getText().toString();
-        telefono = txtTelefono.getEditText().getText().toString();
-        contraseña = txtContraseña.getEditText().getText().toString();
-        confirmarContraseña = txtConfirmarContraseña.getEditText().getText().toString();
+        if( usuarioEditar == null ){
+            nombres = txtNombres.getEditText().getText().toString();
+            apellidos = txtApellidos.getEditText().getText().toString();
+            departamento = txtDepartamento.getEditText().getText().toString();
+            municipio = txtMunicipio.getEditText().getText().toString();
+            direccion = txtDireccion.getEditText().getText().toString();
+            email = txtEmail.getEditText().getText().toString();
+            telefono = txtTelefono.getEditText().getText().toString();
+            contraseña = txtContraseña.getEditText().getText().toString();
+            confirmarContraseña = txtConfirmarContraseña.getEditText().getText().toString();
 
-        final User user = new User(nombres, apellidos, email, direccion, telefono, departamento, municipio);
+            final User user = new User(nombres, apellidos, email, direccion, telefono, departamento, municipio);
 
-        if( validarInfoRegistro() ){
-            progressDialog.show();
-            String ruta = uriProfileImage.toString();
-            String imagen = ruta.substring(ruta.lastIndexOf("/"));
-            usuarioRepositorios.subirImagenUsuario(imagen, uriProfileImage, new AppCallback<String>() {
-                @Override
-                public void correcto(String respuesta) {
-                    user.setUrlImagen(respuesta);
-                    usuarioRepositorios.crearUsuario(user, contraseña, new AppCallback<Boolean>() {
+            if( validarInfoRegistro() ){
+                progressDialog.show();
+                String ruta = uriProfileImage.toString();
+                String imagen = ruta.substring(ruta.lastIndexOf("/"));
+                usuarioRepositorios.subirImagenUsuario(imagen, uriProfileImage, new AppCallback<String>() {
+                    @Override
+                    public void correcto(String respuesta) {
+                        user.setUrlImagen(respuesta);
+                        usuarioRepositorios.crearUsuario(user, contraseña, new AppCallback<Boolean>() {
+                            @Override
+                            public void correcto(Boolean respuesta) {
+                                progressDialog.dismiss();
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                            @Override
+                            public void error(Exception exception) {
+                                progressDialog.show();
+                                procesarMensajeError(exception);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void error(Exception exception) {
+                        progressDialog.show();
+                        procesarMensajeError(exception);
+                    }
+                });
+            } else {
+                progressDialog.dismiss();
+            }
+
+        } else {
+            usuarioEditar.setName(txtNombres.getEditText().getText().toString());
+            usuarioEditar.setLastname(txtApellidos.getEditText().getText().toString());
+            usuarioEditar.setDepartamento(txtDepartamento.getEditText().getText().toString());
+            usuarioEditar.setMunicipio(txtMunicipio.getEditText().getText().toString());
+            usuarioEditar.setAddress(txtDireccion.getEditText().getText().toString());
+            usuarioEditar.setPhone(txtTelefono.getEditText().getText().toString());
+
+            if( validarInfoRegistro() ){
+                progressDialog.show();
+                if( uriProfileImageEdit != null ){
+                    String ruta = uriProfileImageEdit.toString();
+                    String imagen = ruta.substring(ruta.lastIndexOf("/"));
+                    usuarioRepositorios.subirImagenUsuario(imagen, uriProfileImageEdit, new AppCallback<String>() {
+                        @Override
+                        public void correcto(String respuesta) {
+                            usuarioEditar.setUrlImagen(respuesta);
+                            usuarioRepositorios.editarUsuario(usuarioEditar, new AppCallback<Boolean>() {
+                                @Override
+                                public void correcto(Boolean respuesta) {
+                                    Log.d(TAG, "correcto: "+ respuesta.toString());
+                                    progressDialog.dismiss();
+                                    setResult(RESULT_OK);
+                                    finish();
+                                }
+                                @Override
+                                public void error(Exception exception) {
+                                    progressDialog.show();
+                                    procesarMensajeError(exception);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void error(Exception exception) {
+                            progressDialog.show();
+                            procesarMensajeError(exception);
+                        }
+                    });
+                } else {
+                    usuarioRepositorios.editarUsuario(usuarioEditar, new AppCallback<Boolean>() {
                         @Override
                         public void correcto(Boolean respuesta) {
                             progressDialog.dismiss();
                             setResult(RESULT_OK);
                             finish();
                         }
+
                         @Override
                         public void error(Exception exception) {
                             progressDialog.show();
@@ -234,15 +331,9 @@ public class RegistrarDatosActivity extends AppCompatActivity {
                         }
                     });
                 }
-
-                @Override
-                public void error(Exception exception) {
-                    progressDialog.show();
-                    procesarMensajeError(exception);
-                }
-            });
-        } else {
-            progressDialog.dismiss();
+            } else {
+                progressDialog.dismiss();
+            }
         }
     }
 
@@ -286,8 +377,13 @@ public class RegistrarDatosActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if( foto != null ){
-                uriProfileImage = FileProvider.getUriForFile(this,
-                        "com.example.buscandohogar.fileprovider", foto);
+                if( usuarioEditar != null ){
+                    uriProfileImageEdit = FileProvider.getUriForFile(this,
+                            "com.example.buscandohogar.fileprovider", foto);
+                }else {
+                    uriProfileImage = FileProvider.getUriForFile(this,
+                            "com.example.buscandohogar.fileprovider", foto);
+                }
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uriProfileImage);
                 startActivityForResult(intent, CODIGO_TOMAR_FOTO);
             }
@@ -317,11 +413,20 @@ public class RegistrarDatosActivity extends AppCompatActivity {
         if( resultCode == RESULT_OK ){
             switch (requestCode){
                 case CODIGO_TOMAR_FOTO:
-                    Glide.with(this).load(uriProfileImage).into(ivFotoProfile);
+                    if (usuarioEditar != null) {
+                        Glide.with(this).load(uriProfileImageEdit).into(ivFotoProfile);
+                    } else {
+                        Glide.with(this).load(uriProfileImage).into(ivFotoProfile);
+                    }
                     break;
                 case CODIGO_CARRETE:
-                    uriProfileImage = data.getData();
-                    Glide.with(this).load(uriProfileImage).into(ivFotoProfile);
+                    if( usuarioEditar != null ){
+                        uriProfileImageEdit = data.getData();
+                        Glide.with(this).load(uriProfileImageEdit).into(ivFotoProfile);
+                    } else {
+                        uriProfileImage = data.getData();
+                        Glide.with(this).load(uriProfileImage).into(ivFotoProfile);
+                    }
                     break;
                 default:
                     break;

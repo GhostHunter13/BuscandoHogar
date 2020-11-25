@@ -71,6 +71,7 @@ public class SolicitudRepositorio {
         this.mascotaRepositorios = new MascotaRepositorios(context);
     }
 
+
     public void obtenerSolicitudesPorDueño(final AppCallback<ArrayList<Solicitud>> response){
         mFirestore.collection(SOLICITUD_COLLECTION).document(mAuth.getUid())
                 .collection(SOLICITUDES_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -81,7 +82,9 @@ public class SolicitudRepositorio {
                     ArrayList<Solicitud> listaSolicitudes = new ArrayList<>();
                     for(DocumentSnapshot item : task.getResult().getDocuments()){
                         Solicitud solicitud = item.toObject(Solicitud.class);
-                        listaSolicitudes.add(solicitud);
+                        if( solicitud.getEstado().equals("P") ) {
+                            listaSolicitudes.add(solicitud);
+                        }
                     }
                     response.correcto(listaSolicitudes);
                 }
@@ -89,7 +92,18 @@ public class SolicitudRepositorio {
         });
     }
 
+    /**
+     * La solicitud se crea como coleccion dentro de un documento que lleva el ID del usuario en sesion.
+     * La jerarquia es la siguiente:
+     * ---COLLECTION (solicitud)
+     * ------------DOCUMENTO (7XYbbYS7LiX7xvGGaxYLolNiD9p2) (id del usuario dueño de la mascota)
+     * ---------------------------------------------------COLECCTION (solicitudes)
+     * -------------------------------------------------------------- DOCUMENTO (tWdRz2vKmvDPyeTPuTN1) Informacion de la solicitud.
+     * @param solicitud
+     * @param response
+     */
     public void crearSolicitud(final Solicitud solicitud, final AppCallback<Boolean> response){
+        solicitud.setEstado("P");
         mFirestore.collection(SOLICITUD_COLLECTION).document(solicitud.getIdUsuarioPropietario())
                 .collection(SOLICITUDES_COLLECTION).add(solicitud).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
@@ -105,26 +119,38 @@ public class SolicitudRepositorio {
         });
     }
 
-    public void recibirSolicitudes(final AppCallback<ArrayList<Solicitud>> response){
-        mFirestore.collection(SOLICITUD_COLLECTION).addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+
+    public void recibirSolicitudes(final AppCallback<Boolean> response){
+        mFirestore.collection(SOLICITUDES_COLLECTION).whereEqualTo("idUsuarioPropietario", mAuth.getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                response.correcto(listadoSolicitud);
+                response.correcto(true);
             }
         });
+    }
 
-//        mFirestore.collection(SOLICITUD_COLLECTION).document(mAuth.getUid())
-//                .collection(SOLICITUDES_COLLECTION).addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                listadoSolicitud.clear();
-//                for( DocumentSnapshot solicitud : value.getDocuments() ){
-//                    Solicitud sol = solicitud.toObject(Solicitud.class);
-//                    listadoSolicitud.add(sol);
-//                }
-//                response.correcto(listadoSolicitud);
-//            }
-//        });
+    public void obtenerSolicitudesMascota(String idMascota, final AppCallback<Boolean> response){
+        mFirestore.collectionGroup(SOLICITUDES_COLLECTION).whereEqualTo("idAnimal", idMascota).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if( task.isSuccessful() ){
+                    Log.d(TAG, "onComplete: idMascota "+ task.getResult());
+                    if( task.getResult().size() > 0 ){
+                        for( DocumentSnapshot item : task.getResult().getDocuments() ){
+                            Solicitud solicitud = item.toObject(Solicitud.class);
+                            Log.d(TAG, "onComplete: Solicitud"+ solicitud.toString(solicitud));
+                        }
+                        response.correcto(true);
+                    } else {
+                        response.correcto(false);
+                    }
+                }else {
+                    Log.d(TAG, "onComplete: SOLICITUDESMASCOTA "+ task.getException().getMessage());
+                    task.getException();
+                }
+            }
+        });
     }
 
     public String obtenerUsuarioSesion(){
@@ -132,6 +158,20 @@ public class SolicitudRepositorio {
             return mAuth.getUid();
 
         return null;
+    }
+
+    public void cambiarEstadoSolicitud(Solicitud solicitud, final AppCallback<Boolean> response){
+
+        mFirestore.collection(SOLICITUD_COLLECTION).document(mAuth.getUid()).collection(SOLICITUDES_COLLECTION).document(solicitud.getId()).set(solicitud).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if( task.isSuccessful() ){
+                    response.correcto(true);
+                } else {
+                    response.error(task.getException());
+                }
+            }
+        });
     }
 
 }

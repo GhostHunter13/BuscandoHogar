@@ -3,9 +3,11 @@ package com.example.buscandohogar.view.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,10 +28,11 @@ public class ConocemeActivity extends AppCompatActivity {
     private static final String INFO_MASCOTA = "mascota";
     private static final String VALOR_ACTIVO = "A";
     private static final String VALOR_INACTIVO = "I";
+    private static final String TAG = "ConocemeActivity";
 
     private ImageView ivMascotaDetalle;
     private TextView tvNombreMascotaDetalle, tvDescripcionMascotaDetalle, tvRazaMascotaDetalle,
-                        tvEdadMascotaDetalle;
+                        tvEdadMascotaDetalle, tvMensajeAdvertencia;
     private Button btnAtrasDetalle, btnSolicitarAdopcion;
     private MascotaRepositorios mascotaRepositorios;
     private UsuarioRepositorios usuarioRepositorios;
@@ -43,6 +46,7 @@ public class ConocemeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_conoceme);
         Intent intent = new Intent(getIntent());
         mascota = (Animal) intent.getSerializableExtra(INFO_MASCOTA);
+        Log.d(TAG, "onCreate: "+ mascota.getId());
         setDatos();
     }
 
@@ -52,6 +56,7 @@ public class ConocemeActivity extends AppCompatActivity {
         tvDescripcionMascotaDetalle = findViewById(R.id.tvDescripcionMascotaDetalle);
         tvRazaMascotaDetalle = findViewById(R.id.tvRazaMascotaDetalle);
         tvEdadMascotaDetalle = findViewById(R.id.tvEdadMascotaDetalle);
+        tvMensajeAdvertencia = findViewById(R.id.tvMensajeAdvertencia);
         btnAtrasDetalle = findViewById(R.id.btnAtrasDetalle);
         btnSolicitarAdopcion = findViewById(R.id.btnSolicitarAdopcion);
         mascotaRepositorios = new MascotaRepositorios(this);
@@ -67,6 +72,11 @@ public class ConocemeActivity extends AppCompatActivity {
         tvRazaMascotaDetalle.setText(getString(R.string.raza_formulario, mascota.getRaza()));
         tvEdadMascotaDetalle.setText(getString(R.string.edad_formulario, ""+mascota.getEdad()));
 
+        if( mascota.getIdDueño().equals(usuarioRepositorios.obtenerUsuarioSesion()) ){
+            btnSolicitarAdopcion.setVisibility(View.GONE);
+            tvMensajeAdvertencia.setText(getString(R.string.mascota_propia));
+        }
+
     }
 
     public void irAtras(View v){
@@ -77,9 +87,9 @@ public class ConocemeActivity extends AppCompatActivity {
     public void solicitarAdopcion(View v){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setIcon(R.mipmap.ic_launcher_round);
-        progressDialog.setMessage("Cargando mascotas...");
+        progressDialog.setMessage(getString(R.string.cargando_mascotas));
         progressDialog.show();
-        solicitud = new Solicitud("", solicitudRepositorio.obtenerUsuarioSesion(), mascota.getIdDueño(), mascota.getId(), VALOR_ACTIVO);
+        solicitud = new Solicitud(solicitudRepositorio.obtenerUsuarioSesion(), mascota.getIdDueño(), mascota.getId(), VALOR_ACTIVO);
         solicitudRepositorio.crearSolicitud(solicitud, new AppCallback<Boolean>() {
             @Override
             public void correcto(Boolean respuesta) {

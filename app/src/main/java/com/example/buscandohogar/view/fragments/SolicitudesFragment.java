@@ -30,12 +30,17 @@ import com.example.buscandohogar.view.adapter.SolicitudAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolicitudesFragment extends Fragment {
+public class SolicitudesFragment extends Fragment implements SolicitudAdapter.OnItemClickListener {
 
-    private static final String CHANNEL_ID = "BuscandoUnHogarCanalNotificaciones";
+
+    private static final String VALOR_NEGADO = "N";
+    private static final String VALOR_ACEPTAR = "A";
+    private static final String VALOR_PROCESO = "P";
+
     private View v;
     private Context context;
     private RecyclerView rvSolicitudes;
+    private SolicitudAdapter.OnItemClickListener onItemClickListener;
     private ArrayList<Solicitud> listSolicitudes;
     private SolicitudAdapter adapterSolicitud;
     private LinearLayoutManager llNoSolicitudes;
@@ -65,6 +70,7 @@ public class SolicitudesFragment extends Fragment {
         progressDialog.setMessage("Cargando solicitudes...");
         progressDialog.show();
         context = getContext();
+        onItemClickListener = this;
         solicitudRepositorio = new SolicitudRepositorio(context);
         listSolicitudes = new ArrayList<>();
         linearNoSolicitudes = v.findViewById(R.id.linearNoSolicitudes);
@@ -75,6 +81,7 @@ public class SolicitudesFragment extends Fragment {
             public void correcto(ArrayList<Solicitud> respuesta) {
 
                 adapterSolicitud = new SolicitudAdapter(respuesta, context);
+                adapterSolicitud.setOnItemClickListener(onItemClickListener);
 
                 rvSolicitudes = v.findViewById(R.id.rvSolicitudes);
                 rvSolicitudes.setHasFixedSize(true);
@@ -93,38 +100,69 @@ public class SolicitudesFragment extends Fragment {
             }
         });
 
-        solicitudRepositorio.recibirSolicitudes(new AppCallback<ArrayList<Solicitud>>() {
+
+
+    }
+
+    public void actualizarLista(){
+        solicitudRepositorio.obtenerSolicitudesPorDueño(new AppCallback<ArrayList<Solicitud>>() {
             @Override
             public void correcto(ArrayList<Solicitud> respuesta) {
-                enviarNotificacionPush();
+                adapterSolicitud.setListaSolicitudes(respuesta);
             }
 
             @Override
             public void error(Exception exception) {
-                Toast.makeText(context, "Ha ocurrido un error al actualizar la lista de solicitudes "+ exception.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Se ha producido un error "+ exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onItemClickNegarSolicitud(Solicitud solicitud, int posicion) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setIcon(R.mipmap.ic_launcher_round);
+        progressDialog.setMessage("Negando solicitud...");
+        progressDialog.show();
+        solicitud.setEstado(VALOR_NEGADO);
+        solicitudRepositorio.cambiarEstadoSolicitud(solicitud, new AppCallback<Boolean>() {
+            @Override
+            public void correcto(Boolean respuesta) {
+                actualizarLista();
+                progressDialog.dismiss();
+                Toast.makeText(context, "Se ha negado la solicitud exitosamente.", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void error(Exception exception) {
+                progressDialog.dismiss();
+                Toast.makeText(context, "Ha ocurrido un error "+ exception.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onItemClickAceptarSolicitud(Solicitud solicitud, int posicion) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setIcon(R.mipmap.ic_launcher_round);
+        progressDialog.setMessage("Aceptando solicitud...");
+        progressDialog.show();
+        solicitud.setEstado(VALOR_ACEPTAR);
+        solicitudRepositorio.cambiarEstadoSolicitud(solicitud, new AppCallback<Boolean>() {
+            @Override
+            public void correcto(Boolean respuesta) {
+                actualizarLista();
+                progressDialog.dismiss();
+                Toast.makeText(context, "Se ha aceptado a la solicitud exitosamente. El usuario solicitante podrá ver tu numero de contacto", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void error(Exception exception) {
+                progressDialog.dismiss();
+                Toast.makeText(context, "Ha ocurrido un error "+ exception.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
     }
-
-    public void actualizarLista(ArrayList<Solicitud> listaSolicitudes){
-        adapterSolicitud.setListaSolicitudes(listaSolicitudes);
-    }
-
-    public void enviarNotificacionPush(){
-        Intent intent = new Intent(getContext(), SolicitudesFragment.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_new_push_notificacion)
-                .setContentTitle(getString(R.string.app_name))
-                .setContentText(getString(R.string.notificacion_mensaje))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true);
-    }
-
 }

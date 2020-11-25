@@ -34,6 +34,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 public class AnimalesFragment extends Fragment  implements AnimalAdapter.OnItemClickListener{
 
     private static final String TAB_LAYOUT = "TabLayout";
@@ -153,7 +155,7 @@ public class AnimalesFragment extends Fragment  implements AnimalAdapter.OnItemC
 
     @Override
     public void onItemClickImagen(Animal mascota, int posicion) {
-
+        Toast.makeText(context, "La idea era mandar a una vista para ver el perfil del usuario. Pero no dió tiempo :(", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -161,7 +163,7 @@ public class AnimalesFragment extends Fragment  implements AnimalAdapter.OnItemC
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode){
             case IR_A_CONOCEME:
-                if( resultCode == 1 )
+                if( resultCode == RESULT_OK )
                     Toast.makeText(getContext(), "Se ha registrado la solicitud correctamente.", Toast.LENGTH_SHORT).show();
                 break;
             default:

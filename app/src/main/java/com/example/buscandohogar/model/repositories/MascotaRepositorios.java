@@ -52,19 +52,21 @@ public class MascotaRepositorios {
     private FirebaseAuth mAuth;
     private StorageReference mReference;
     private ArrayList<Animal> listadoMascotas;
-    private HashMap<User,Animal> listaMascotasDueños;
 
     public MascotaRepositorios(Context context){
         this.contexto = context;
         this.mFirestore = FirebaseFirestore.getInstance();
         this.mAuth = FirebaseAuth.getInstance();
         this.listadoMascotas = new ArrayList<>();
-        this.listaMascotasDueños = new HashMap<>();
         this.mStorage = FirebaseStorage.getInstance();
         this.mReference = mStorage.getReference();
         this.usuarioRepositorios = new UsuarioRepositorios(context);
     }
 
+    /**
+     * Metodo encargado de Obtener todas las mascotas registradas en la BD.
+     * @param response
+     */
     public void obtenerMascotas(final AppCallback<ArrayList<Animal>> response) {
         mFirestore.collection(MASCOTA_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -73,6 +75,7 @@ public class MascotaRepositorios {
                     listadoMascotas.clear();
                     for(DocumentSnapshot item : task.getResult().getDocuments()){
                         Animal mascota = item.toObject(Animal.class);
+                        mascota.setId(item.getId());
                         listadoMascotas.add(mascota);
                     }
                     response.correcto(listadoMascotas);
@@ -83,25 +86,11 @@ public class MascotaRepositorios {
         });
     }
 
-    public void obtenerMascotasMap(final AppCallback<HashMap<User,Animal>> response) {
-        mFirestore.collection(MASCOTA_COLLECTION).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if( task.isSuccessful() ){
-                    listaMascotasDueños.clear();
-                    for(DocumentSnapshot item : task.getResult().getDocuments()){
-                        Animal mascota = item.toObject(Animal.class);
-                        listadoMascotas.add(mascota);
-                    }
-                    response.correcto(listaMascotasDueños);
-
-                } else {
-                    response.error(task.getException());
-                }
-            }
-        });
-    }
-
+    /**
+     * Metodo encargado de obtener una lista de mascotas asociadas al dueño
+     * No recibe parametros ya que el ID del dueño, se saca de la instancia de Firebase Authentication.
+     * @param response
+     */
     public void obtenerMascotasPorDueño(final AppCallback<ArrayList<Animal>> response){
         mFirestore.collection(MASCOTA_COLLECTION).whereEqualTo("idDueño", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -111,6 +100,7 @@ public class MascotaRepositorios {
                     ArrayList<Animal> mascotas = new ArrayList<>();
                     for(DocumentSnapshot item : task.getResult().getDocuments()){
                         Animal mascota = item.toObject(Animal.class);
+                        Log.d(TAG, "onComplete: Mascota: "+ mascota.toString(mascota));
                         mascotas.add(mascota);
                     }
                     response.correcto(mascotas);
@@ -119,9 +109,13 @@ public class MascotaRepositorios {
         });
     }
 
+    /**
+     * Metodo encargado de obtener una sola mascota, teniendo en cuenta el ID de la mascota.
+     * @param idMascota
+     * @param response
+     */
     public void obtenerMascotaById(String idMascota, final AppCallback<Animal> response){
-
-        mFirestore.collection(MASCOTA_COLLECTION).document("B1uRqjgQM0nPQ337vE2i").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        mFirestore.collection(MASCOTA_COLLECTION).document(idMascota).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if( task.isSuccessful() ){
@@ -135,6 +129,11 @@ public class MascotaRepositorios {
         });
     }
 
+    /**
+     * Metodo encargado de guardar el objeto Mascota en la base de datos
+     * @param mascota
+     * @param response
+     */
     public void crearMascota(final Animal mascota, final AppCallback<String> response){
         mascota.setIdDueño(mAuth.getUid());
         mFirestore.collection(MASCOTA_COLLECTION).add(mascota).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -150,6 +149,13 @@ public class MascotaRepositorios {
         });
     }
 
+    /**
+     * Metodo encargado de subir la imagen de la mascota.
+     * Devuelve la URL de la imagen para posteriormente ser seteada en el objeto a guardar.
+     * @param imagen
+     * @param uriUsuarioProfile
+     * @param response
+     */
     public void subirImagenMascota(String imagen, Uri uriUsuarioProfile, AppCallback<String> response){
         StorageReference imagenReference = mReference.child("mascotas/"+imagen);
         imagenReference.putFile(uriUsuarioProfile).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -167,6 +173,54 @@ public class MascotaRepositorios {
                             }
                         }
                     });
+                } else {
+                    response.error(task.getException());
+                }
+            }
+        });
+    }
+
+    /**
+     * Metodo encarga de eliminar la mascota de la BD, teniendo como referencia el ID.
+     * Posteriormente se procede a eliminar la imagen de la mascota teniendo como referencia
+     * la URL de la imagen, y haciendo uso del metodo delete.
+     * @param idMascota
+     * @param urlImagen
+     * @param response
+     */
+    public void eliminarMascota(String idMascota, String urlImagen, final AppCallback<Boolean> response){
+        mFirestore.collection(MASCOTA_COLLECTION).document(idMascota).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if( task.isSuccessful() ){
+                    StorageReference referenciaImagen = mStorage.getReferenceFromUrl(urlImagen);
+                    referenciaImagen.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if( task.isSuccessful() ){
+                                response.correcto(true);
+                            } else{
+                                response.error(task.getException());
+                            }
+                        }
+                    });
+                }else {
+                    response.error(task.getException());
+                }
+            }
+        });
+    }
+
+    /**
+     * Metodo encargado de editar la informacion de una mascota en la BD.
+     * @param mascota
+     */
+    public void editarMascota(Animal mascota, final AppCallback<Boolean> response){
+        mFirestore.collection(MASCOTA_COLLECTION).document(mascota.getId()).set(mascota).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if( task.isSuccessful() ){
+                    response.correcto(true);
                 } else {
                     response.error(task.getException());
                 }

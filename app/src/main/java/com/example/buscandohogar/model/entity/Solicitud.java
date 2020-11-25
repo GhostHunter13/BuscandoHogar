@@ -1,9 +1,12 @@
 package com.example.buscandohogar.model.entity;
 
+import com.google.firebase.firestore.DocumentId;
+
 import java.io.Serializable;
 
 public class Solicitud implements Serializable {
 
+    @DocumentId
     private String id;
     private String idUsuarioSolicitante;
     private String idUsuarioPropietario;
@@ -13,8 +16,7 @@ public class Solicitud implements Serializable {
     public Solicitud() {
     }
 
-    public Solicitud(String id, String idUsuarioSolicitante, String idUsuarioPropietario, String idAnimal, String estado) {
-        this.id = id;
+    public Solicitud(String idUsuarioSolicitante, String idUsuarioPropietario, String idAnimal, String estado) {
         this.idUsuarioSolicitante = idUsuarioSolicitante;
         this.idUsuarioPropietario = idUsuarioPropietario;
         this.idAnimal = idAnimal;
@@ -59,5 +61,10 @@ public class Solicitud implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String toString(Solicitud solicitud){
+        return "IdSolicitud: "+ solicitud.getId() + " idUsuarioSolicitante: " + solicitud.getIdUsuarioSolicitante() +
+                " idUsuarioPropietario: " + solicitud.getIdUsuarioPropietario() + " idAnimal: "+ solicitud.getIdAnimal() + " estado "+ solicitud.getEstado();
     }
 }

@@ -18,6 +18,7 @@ import com.example.buscandohogar.model.entity.Animal;
 import com.example.buscandohogar.model.entity.User;
 import com.example.buscandohogar.model.network.AppCallback;
 import com.example.buscandohogar.model.repositories.UsuarioRepositorios;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -86,6 +87,8 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
                     tvMascotaEdad.setText(animal.getEdad()+" año(s)");
                     tvMascotaRaza.setText(animal.getRaza());
                     tvMascotaDescripcion.setText(animal.getDescripcion());
+
+
 
                     if( onItemClickListener != null ){
                         ivPerfilAddMascota.setOnClickListener(new View.OnClickListener() {

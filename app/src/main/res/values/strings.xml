@@ -17,7 +17,7 @@
         <item>@string/perro</item>
         <item>@string/gato</item>
     </array>
-    
+
     <!-- Errores -->
     <string name="errorNombre">Por favor, coloque un Nombre valido</string>
     <string name="errorApellidos">Por favor, coloque un Apellido valido</string>
@@ -74,6 +74,20 @@
     <string name="notificacion_mensaje">Te han enviado una solicitud de adopcion por una mascota que has publicado. Revisala aqui!</string>
     <string name="nombre_canal">notificaciones_buh</string>
     <string name="channel_description">Canal de notificaciones para la aplicacion Buscando un Hogar</string>
+    <string name="error_imagen_formulario">Obligatoriamente debes añadir una imagen de la mascota</string>
+    <string name="error_imagen_formulario_usuario">Obligatoriamente debes añadir una imagen</string>
+    <string name="mascota_propia">Para editar o eliminar una mascota que hayas registrado,
+        ve a la pestaña "Mis mascotas" de la pantalla principal.
+    </string>
+    <string name="confirmar_eliminar">¿Desea eliminar el registro?</string>
+    <string name="cancelar">Cancelar</string>
+
+    <string name="editar_info">Editar Información %1$s</string>
+    <string name="modificar_info">Modificar</string>
+    <string name="mensaje_edicion_mascota">Se ha editado la informacion de la mascota correctamente</string>
+    <string name="mensaje_error_telefono">El número de telefono debe ser de 10 digitos</string>
+    <string name="editar_info_mascota">Editar Información de la Mascota</string>
+    <string name="cargando_mascotas">Cargando mascotas...</string>
 
 
     <string-array name="departamentos">

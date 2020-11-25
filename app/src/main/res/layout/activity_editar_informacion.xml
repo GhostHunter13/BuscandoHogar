@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragments.AdoptionFragment">
+    tools:context=".view.activity.EditarInformacionActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,11 +13,11 @@
 
         <!--  Titulo del Formulario   -->
         <TextView
-            android:id="@+id/tvTituloFormulario"
+            android:id="@+id/tvTituloEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/blackTextColor"
-            android:text="Registro Información de la Mascota"
+            android:text="@string/editar_info_mascota"
             android:fontFamily="@font/simplicity"
             android:textSize="30sp"
             android:gravity="center"
@@ -25,22 +26,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-
-            <!-- Informacion De la Mascota  -->
+        <!-- Informacion De la Mascota  -->
 
         <LinearLayout
-            android:id="@+id/layoutInfoMascota"
+            android:id="@+id/layoutInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTituloFormulario">
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloEditar">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:id="@+id/etNombreMascota"
+                android:id="@+id/etNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -166,13 +166,36 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/linearBotones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAtras"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:onClick="cancelarEditar"
+                android:text="@string/boton_ir_atras" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight=".1"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegistrarMascota"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:onClick="registrarMascota"
-                android:text="@string/registrar_mascota" />
+                android:onClick="modificarMascota"
+                android:text="@string/editar" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

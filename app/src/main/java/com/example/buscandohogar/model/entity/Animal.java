@@ -1,20 +1,20 @@
 package com.example.buscandohogar.model.entity;
 
 import com.example.buscandohogar.R;
+import com.google.firebase.firestore.DocumentId;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Animal implements Serializable {
 
+    @DocumentId
+    private String id;
     private String nombre;
     private String tipo;
     private String raza;
     private int edad;
     private String descripcion;
     private String urlImagen;
-    private String id;
     private String idDueño;
     //Se crean estos campos mientras se busca como traer la info solo con el
 
@@ -31,7 +31,6 @@ public class Animal implements Serializable {
         this.descripcion = descripcion;
         this.urlImagen = urlImagen;
         this.idDueño = idDueño;
-        this.id = "";
     }
 
     public String getNombre() {
@@ -96,5 +95,10 @@ public class Animal implements Serializable {
 
     public void setIdDueño(String idDueño) {
         this.idDueño = idDueño;
+    }
+
+    public String toString(Animal animal){
+        return "idMascota: "+  animal.getId() + " nombreMascota: "+ animal.getNombre() + " tipoMascota: "+ animal.getTipo() + " razaMascota: "+ animal.getRaza() + " edadMascota: "+  animal.getEdad() +
+                " descripcionMascota: "+ animal.getDescripcion() + " imagenMascota: " + animal.getUrlImagen() + " idDueño: "+ animal.getIdDueño();
     }
 }

@@ -67,9 +67,13 @@ public class UsuarioRepositorios {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if( task.isSuccessful() ){
-                    User user = task.getResult().toObject(User.class);
-                    user.setId(task.getResult().getId());
-                    response.correcto(user);
+                    Log.d(TAG, "onComplete: resultado "+ task.getResult());
+                    if( task.getResult() != null ){
+                        User user = task.getResult().toObject(User.class);
+                        Log.d(TAG, "onComplete: usuario"+ user);
+                        user.setId(idUser);
+                        response.correcto(user);
+                    }
                 } else {
                     response.error(task.getException());
                 }
@@ -113,6 +117,19 @@ public class UsuarioRepositorios {
         });
     }
 
+    public void editarUsuario(User user, final AppCallback<Boolean> response){
+        mFirestore.collection(USERS_COLLECTION).document(user.getId()).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if( task.isSuccessful() ){
+                    response.correcto(true);
+                } else{
+                    response.error(task.getException());
+                }
+            }
+        });
+    }
+
     public void subirImagenUsuario(String imagen, Uri uriUsuarioProfile, AppCallback<String> response){
         StorageReference imagenReference = mReference.child("users/"+imagen);
         imagenReference.putFile(uriUsuarioProfile).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -143,6 +160,7 @@ public class UsuarioRepositorios {
 
     /**
      * Metodo que hace uso de una API para obtener los departamentos y municipios de Colombia
+     * Para mostrar los departamentos se creò el array en el string.xml
      * NO SIRVE :(
      * @param response
      */
@@ -161,6 +179,30 @@ public class UsuarioRepositorios {
             @Override
             public void onFailure(Call<ArrayList<List>> call, Throwable t) {
 
+            }
+        });
+    }
+
+    public String obtenerUsuarioSesion(){
+        if( mAuth.getUid() != null )
+            return mAuth.getUid();
+
+        return null;
+    }
+
+    public void obtenerObjetoUsuarioEnSesion(final AppCallback<User> response){
+        mFirestore.collection(USERS_COLLECTION).document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if( task.isSuccessful() ){
+                    Log.d(TAG, "onComplete: resultado "+ task.getResult());
+                    if( task.getResult() != null ){
+                        User user = task.getResult().toObject(User.class);
+                        response.correcto(user);
+                    }
+                } else {
+                    response.error(task.getException());
+                }
             }
         });
     }

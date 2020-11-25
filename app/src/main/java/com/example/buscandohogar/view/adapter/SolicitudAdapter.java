@@ -34,7 +34,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
     private UsuarioRepositorios usuarioRepositorios;
     private MascotaRepositorios mascotaRepositorios;
     private ArrayList<Solicitud> listaSolicitudes;
-    private SolicitudAdapter.OnItemClickListener onItemClickListener;
+    private OnItemClickListener onItemClickListener;
 
     public void setListaSolicitudes(ArrayList<Solicitud> listaSolicitudes){
         this.listaSolicitudes = listaSolicitudes;
@@ -47,7 +47,7 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
         this.usuarioRepositorios = new UsuarioRepositorios(context);
     }
 
-    public void setOnItemClickListener(SolicitudAdapter.OnItemClickListener onItemClickListener){
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -131,12 +131,6 @@ public class SolicitudAdapter extends RecyclerView.Adapter<SolicitudAdapter.Soli
     @Override
     public int getItemCount() {
         return listaSolicitudes.size();
-    }
-
-    public void updateAnimalsList(List<Solicitud> newList){
-        listaSolicitudes.clear();
-        listaSolicitudes.addAll(newList);
-        this.notifyDataSetChanged();
     }
 
     public interface OnItemClickListener{

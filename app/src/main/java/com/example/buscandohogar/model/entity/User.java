@@ -2,10 +2,13 @@ package com.example.buscandohogar.model.entity;
 
 import android.content.ContentValues;
 
+import com.google.firebase.firestore.DocumentId;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
 
+    @DocumentId
     private String id;
     private String name;
     private String lastname;
